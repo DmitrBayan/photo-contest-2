@@ -17,8 +17,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def render_404(error)
-    @not_found_path = exception.message
+  def authenticate_admin_user!
+    render_404(error) unless current_user.admin?
+  end
+
+  def render_404(_error)
     respond_to do |format|
       format.html { render template: 'errors/error_404', status: 404 }
       format.all { render nothing: true, status: 404 }

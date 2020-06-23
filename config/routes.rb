@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
   get 'errors/error_404'
-  get 'errors/error_505'
   ActiveAdmin.routes(self)
   root 'static_pages#home'
   delete 'logout' => 'session#destroy'
