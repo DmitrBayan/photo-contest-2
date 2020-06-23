@@ -1,21 +1,18 @@
 default: &default
   adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  encoding: unicode
+  pool: 5
 
 development:
   <<: *default
-  database: hyeku_photo_development
+  database: photo_contest_development
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: hyeku_photo_test
+  database: photo_contest_test
 
 production:
   <<: *default
-  database: hyeku_photo_production
-  username: hyeku_photo
-  password: <%= ENV['HYEKU_PHOTO_DATABASE_PASSWORD'] %>
+  database: photo_contest_production
+  username: photo_contest
+  password: <%= ENV['PHOTO_CONTEST_DATABASE_PASSWORD'] %>

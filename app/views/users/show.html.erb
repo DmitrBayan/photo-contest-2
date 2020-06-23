@@ -1,0 +1,26 @@
+<% provide(:title, @user.first_name + " " + @user.last_name) %>
+<div class="row">
+    <aside class="col-md-4">
+      <section>
+        <h1>
+          <img src=<%= @user.image_url %> alt="User"/>
+          <%= @user.first_name %>
+          <%= @user.last_name %>
+          <h3><a href="<%= @user.url %>">Social</a></h3>
+        </h1>
+      </section>
+        <section class="post_form">
+          <%= render 'shared/post_form' %>
+        </section>
+    </aside>
+    <div class="col-md-8">
+      <% if @user.posts.any? %>
+        <h3>Posts (<%= @user.posts.approved.count %>)</h3>
+        <ol class="posts">
+          <%= render @posts %>
+        </ol>
+        <%= will_paginate @posts %>
+      <% end %>
+    </div>
+
+  </div>

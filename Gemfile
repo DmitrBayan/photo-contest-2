@@ -3,14 +3,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.8'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-# Use sqlite3 as the database for Active Record
-gem 'pg'
+gem 'rails', '~> 6.0.0'
+gem 'railties'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+gem 'sass-rails', '~> 5'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -27,6 +25,34 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+
+# omniauth
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+
+# carrierwave to upload photo
+gem 'carrierwave', '~> 2.0'
+
+# pagination
+gem 'kaminari'
+
+# active interaction
+gem 'active_interaction', '~> 3.7'
+
+gem 'fog-aws', '3.6.5'
+gem 'fog-core'
+gem 'pg'
+gem 'aasm'
+gem 'activeadmin'
+gem 'i18n'
+# rubocop
+gem 'rubocop', require: false
+
+# bootstrap-sprockets
+gem 'bootstrap-sass'
+gem 'bootstrap-will_paginate'
+
+gem 'will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
