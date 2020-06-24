@@ -39,5 +39,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
-
+.idea
 /config/credentials/*.key
