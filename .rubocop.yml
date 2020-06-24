@@ -1,0 +1,16 @@
+require: rubocop-rails
+AllCops:
+  TargetRubyVersion: 2.5.8
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - node_modules/**/*
+  NewCops: enable
+Rails:
+  Enabled: true
+Style/Documentation:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Layout/LineLength:
+  Max: 120

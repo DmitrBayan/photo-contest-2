@@ -47,6 +47,7 @@ gem 'activeadmin'
 gem 'i18n'
 # rubocop
 gem 'rubocop', require: false
+gem 'rubocop-rails', require: false
 
 # bootstrap-sprockets
 gem 'bootstrap-sass'
