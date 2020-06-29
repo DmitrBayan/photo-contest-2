@@ -4,5 +4,9 @@
     <div class="dropdown-content">
       <%= link_to 'Date ▼', posts_path(sorting: 'created_at ASC') %>
       <%= link_to 'Date ▲', posts_path(sorting: 'created_at DESC') %>
+      <%= link_to 'Like ▼', posts_path(sorting: 'likes_count DESC') %>
+      <%= link_to 'Like ▲', posts_path(sorting: 'likes_count ASC') %>
+      <%= link_to 'Comment ▼', posts_path(sorting: 'comments_count DESC') %>
+      <%= link_to 'Comment ▲', posts_path(sorting: 'comments_count ASC') %>
     </div>
   </div>

@@ -1,6 +1,10 @@
 <li class="comment">
-  <%= comment.body %> -
+  <%= comment.body %>
   <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small>
+  <% if current_user?(comment.user) %>
+      <%= link_to "Delete comment", comments_path, method: :delete,
+                  data: { confirm: "You sure?" } %>
+  <% end %>
   <%= form_for :comment, url: comments_comments_path(comment) do |f| %>
     <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
     <%= f.submit "Reply"  %>

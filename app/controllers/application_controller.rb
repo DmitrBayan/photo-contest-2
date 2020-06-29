@@ -18,10 +18,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    render_404(error) unless current_user.admin?
+    render_404 unless current_user.admin?
   end
 
-  def render_404(_error)
+  def render_404
     respond_to do |format|
       format.html { render template: 'errors/error_404', status: 404 }
       format.all { render nothing: true, status: 404 }

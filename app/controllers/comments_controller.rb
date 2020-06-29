@@ -17,18 +17,32 @@ class CommentsController < ApplicationController
     end
   end
 
+  after_action on: [:create] do
+    begin
+      Post.find(params[:post_id]).increment!(:comments_count)
+    end
+  end
+
   def destroy
     @comment.destroy
     flash[:success] = 'Comment deleted'
     redirect_to request.referrer || current_user
   end
 
+  after_action on: [:destroy] do
+    begin
+      @commentable.decrement!(:comments_count)
+    end
+  end
+
   private
 
   def correct_user
-    @comment = current_user.posts.comments.find(params[:id])
-    redirect_to root_path if @comment.blank?
-    flash[:warning] = 'It is not your comment'
+    @comment = current_user.comments.find_by(params[:id])
+    if @comment.blank?
+      redirect_to request.referrer || root_path
+      flash[:warning] = 'It is not your comment'
+    end
   end
 
   def comment_params
@@ -39,4 +53,8 @@ class CommentsController < ApplicationController
     @commentable = Comment.find(params[:format]) if params[:format]
     @commentable = Post.find(params[:post_id]) if params[:post_id]
   end
+
+  def commentable_post
+    
+
 end
