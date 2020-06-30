@@ -5,8 +5,9 @@ class PostsController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
-    @posts = Post.page(params[:page]).approved.reorder(params[:sorting])
-    @posts = Post.page(params[:page]).approved unless params[:sorting].present?
+    @posts = Post.paginate.(page: params[:page]).approved
+              .where(['title LIKE ?', "%#{params[:search]}%"])
+              .reorder(params[:sorting])
   end
 
   def show
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
       flash[:success] = 'Post created!'
       redirect_to current_user
     else
-      redirect_to request.referrer || root_path
+      redirect_to request.referer || root_path
       flash[:warning] = @post.errors.full_messages.to_sentence
     end
   end
@@ -27,7 +28,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:success] = 'Post deleted'
-    redirect_to request.referrer || current_user
+    redirect_to request.referer || current_user
   end
 
   private

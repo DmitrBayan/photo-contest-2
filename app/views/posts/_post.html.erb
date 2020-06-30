@@ -1,5 +1,5 @@
 <li id="post-<%= post.id %>">
-  <span class="user"><%= link_to post.user.first_name, post.user %></span>
+  <%= render 'users/user', user: post.user %>
   <span class="content">
     <%= post.title %>
     <%= image_tag(post.photo.url, alt: 'Image') if post.photo?%>

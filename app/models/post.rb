@@ -22,6 +22,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Post < ApplicationRecord
+  include AASM
+
   belongs_to :user
   mount_uploader :photo, PhotoUploader
 
@@ -34,8 +36,6 @@ class Post < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
-
-  include AASM
   aasm do
     state :moderated, initial: true
     state :approved

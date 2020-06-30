@@ -21,6 +21,7 @@ module Users
       else
         user.errors.add('Unknown provider')
       end
+      user.name = user.first_name + ' ' + user.last_name
       user.save ? user : user.errors
     end
   end

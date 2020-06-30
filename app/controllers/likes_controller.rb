@@ -12,7 +12,7 @@ class LikesController < ApplicationController
       @post.likes.create(user_id: current_user.id)
       flash[:success] = 'Liked!'
     end
-    redirect_to request.referrer || root_path
+    redirect_to request.referer || root_path
   end
 
   def destroy; end

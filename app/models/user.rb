@@ -22,5 +22,4 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   validates :access_token, :uid, :provider, presence: true
-
 end
