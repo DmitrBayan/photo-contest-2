@@ -2,9 +2,9 @@
 <h1>All posts</h1>
 <%= render "shared/filterable" %>
 <%= render "shared/post_sort" %>
-<ul class="posts">
-  <%= render @posts %>
-  <% if !@posts.present? %>
-    <h2>Nothing to show...</h2>
-  <% end %>
-</ul>
+
+<% if @posts.blank? %>
+	<p class="font-weight-bold">There are no posts, they may be on moderation.</p>
+<% end %>
+
+<%= render "shared/posts_index" %>

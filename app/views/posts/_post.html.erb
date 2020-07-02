@@ -1,8 +1,9 @@
 <li id="post-<%= post.id %>">
   <%= render 'users/user', user: post.user %>
   <span class="content">
-    <%= post.title %>
+    <div class="title"><%= post.title %></div>
     <%= image_tag(post.photo.url, alt: 'Image') if post.photo?%>
+    <div class="description"><%= post.description if post.description.present?%></div>
   </span>
   <%= render 'shared/likes', post: post %>
   <% if current_user?(post.user) %>

@@ -4,7 +4,10 @@ class LikesController < ApplicationController
   before_action :find_post
   before_action :find_like
 
+  helper_method :already_liked?
+
   def create
+    must_logged && return unless logged?
     if already_liked?
       @like.destroy
       flash[:success] = 'Unliked!'
@@ -21,10 +24,6 @@ class LikesController < ApplicationController
 
   def find_post
     @post = Post.find(params[:post_id])
-  end
-
-  def already_liked?
-    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
   end
 
   def find_like

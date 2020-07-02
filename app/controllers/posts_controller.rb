@@ -5,19 +5,20 @@ class PostsController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
-    @posts = Post.paginate.(page: params[:page]).approved
+    @posts = Post.approved
               .where(['title LIKE ?', "%#{params[:search]}%"])
               .reorder(params[:sorting])
   end
 
   def show
-    @post = Post.find_by(id: params[:post_id])
+    @post = Post.find(params[:id])
+    byebug
   end
 
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:success] = 'Post created!'
+      flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
       redirect_to request.referer || root_path
@@ -34,7 +35,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :photo)
+    params.require(:post).permit(:title, :photo, :description)
   end
 
   def correct_user

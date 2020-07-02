@@ -1,6 +1,7 @@
 <%= form_for :post, url: posts_path, html: { multipart: true } do |f| %>
   <div class="field">
-    <%= f.text_area :title, placeholder: "...photo title..." %>
+    <%= f.text_field :title, placeholder: "...photo title..." %>
+    <%= f.text_area :description, placeholder: "...description (optional)..." %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
   <span class="photo">

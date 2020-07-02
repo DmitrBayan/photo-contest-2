@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    render_404 unless current_user.admin?
+    render_404 unless current_user.admin? 
   end
 
   def render_404
