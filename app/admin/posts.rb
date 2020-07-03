@@ -74,8 +74,9 @@ ActiveAdmin.register Post do
         image_tag ad.photo.show.url
       end
       row :title
+      row :description
       row :author, :user_id do
-        link_to('Author', User.find_by(photo.user_id))
+        link_to('Author', User.find(post.user_id))
       end
       row :created_at
       row :updated_at

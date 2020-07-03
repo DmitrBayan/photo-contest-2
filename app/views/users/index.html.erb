@@ -1,12 +1,5 @@
-<% provide(:title, 'All users') %>
+<% provide(:title, "All users") %>
 <h1>All users</h1>
-<%= render 'shared/user_sort' %>
-<%= will_paginate %>
-<ul class="users">
-    <%= render @users %>
-</ul>
-<% if !@users.present? %>
-  <h2>Something strange... There are no users. <br> <br>
-   Become a first, <%= link_to "LOG IN NOW", root_path %>!</h2>
-<% end %>
-<%= will_paginate %>
+<%= render "shared/user_sort" %>
+<%= render "shared/filterable" %>
+<%= render "shared/users_index" %>

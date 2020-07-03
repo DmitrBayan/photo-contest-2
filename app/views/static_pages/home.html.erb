@@ -12,7 +12,7 @@
         <% else %>
         	<p class="lead text-muted" >Would you like to post a photo?</p>
         	<p>
-        		<%= link_to "+", 'auth/facebook', class: "btn btn-lg btn-success" %>
+        		<%= link_to "+", new_post_url, class: "btn btn-lg btn-success" %>
     	<% end %>
 	</div>
 	<%= render 'shared/posts_index' %>
