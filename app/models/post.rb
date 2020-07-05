@@ -30,11 +30,8 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  validates :title, presence: true
-  validates :photo, presence: true
+  validates :title, :photo, presence: true
   validate :photo_size
-
-  default_scope -> { order(created_at: :desc) }
 
   aasm do
     state :moderated, initial: true
