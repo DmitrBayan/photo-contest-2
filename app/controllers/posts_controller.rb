@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :logged?, only: %i[create destroy]
-  before_action :correct_user, only: :destroy
+  before_action :must_logged, only: %i[create destroy new]
+
+  def new
+  end
 
   def index
     @posts = Post.approved
@@ -21,15 +23,20 @@ class PostsController < ApplicationController
       flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
-      redirect_to request.referer || root_path
       flash[:warning] = @post.errors.full_messages.to_sentence
+      redirect_to request.referer || root_path
     end
   end
 
   def destroy
-    @post.destroy
-    flash[:success] = 'Post deleted'
-    redirect_to request.referer || current_user
+    @post = current_user.posts.find(params[:id])
+    if @post.blank?
+      flash[:warning] = "It's not your post!"
+    else
+      @post.destroy
+      flash[:success] = 'Post deleted'
+    end
+    redirect_to request.referer || root_path
   end
 
   private
@@ -38,8 +45,4 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :photo, :description)
   end
 
-  def correct_user
-    @post = current_user.posts.find(params[:id])
-    redirect_to root_path if @post.blank?
-  end
 end

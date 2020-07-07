@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  before_action :find_post
-  before_action :find_like
-
+  before_action :find_post, :find_like, :must_logged
   helper_method :already_liked?
 
   def create
-    must_logged && return unless logged?
-    if already_liked?
+    byebug
+    if @like.present?
       @like.destroy
       flash[:success] = 'Unliked!'
     else
@@ -18,8 +16,6 @@ class LikesController < ApplicationController
     redirect_to request.referer || root_path
   end
 
-  def destroy; end
-
   private
 
   def find_post
@@ -27,6 +23,6 @@ class LikesController < ApplicationController
   end
 
   def find_like
-    @like = @post.likes.find_by(params[:id])
+    @like = @post.likes.find_by(user_id: current_user.id)
   end
 end

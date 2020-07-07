@@ -15,12 +15,10 @@ module ApplicationHelper
   end
 
   def must_logged
-    redirect_to root_path
-    flash[:warning] = 'You must be logged in!'
-  end
-
-  def already_liked?
-    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists? if logged?
+    unless logged?
+      flash[:warning] = 'You must be logged in!'
+      redirect_to root_path
+    end
   end
 
 end
