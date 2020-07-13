@@ -5,7 +5,6 @@ class LikesController < ApplicationController
   helper_method :already_liked?
 
   def create
-    byebug
     if @like.present?
       @like.destroy
       flash[:success] = 'Unliked!'

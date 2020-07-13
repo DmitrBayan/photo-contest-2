@@ -18,10 +18,11 @@
         	</div>
       	</div>
       	<small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago.</small>
-        <small class="text-muted"><%= @post.user.name %></small>
+        <small class="text-muted"><%= @post.user.full_name %></small>
     </div>
   </div>
   <ul>
-      <%= render 'comments/comment_box' %>
+      <%= render 'shared/comment_form' %>
+      <%= render 'comments/comment1', collection: @post.comments %>
    </ul>
 </div>

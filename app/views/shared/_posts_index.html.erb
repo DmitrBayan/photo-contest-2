@@ -22,7 +22,7 @@
                   					<button type="button" class="btn btn-sm btn-outline-secondary" disabled> <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes' %> </button>
                 				</div>
                 				<small class="text-muted"><%= time_ago_in_words(post.created_at) %> ago.</small>
-                				<small class="text-muted"><%= post.user.name %></small>
+                				<small class="text-muted"><%= post.user.full_name %></small>
               				</div>
           				</div>
       				</div>

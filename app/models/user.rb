@@ -18,8 +18,12 @@
 #
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
-  has_many :comments, dependent: :destroy, inverse_of: :users
-  has_many :likes, dependent: :destroy, inverse_of: :users
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :access_token, :uid, :provider, presence: true
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

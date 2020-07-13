@@ -11,15 +11,16 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  helper_method :current_user
+  helper_method :current_user, :user_name
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
   def authenticate_admin_user!
-    render_404 && return unless current_user.present?
-    render_404 unless current_user.admin?    
+    render_404 && return if current_user.blank?
+
+    render_404 unless current_user.admin?
   end
 
   def render_404

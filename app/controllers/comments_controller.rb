@@ -30,10 +30,10 @@ class CommentsController < ApplicationController
 
   def correct_user
     @comment = current_user.comments.find_by(params[:id])
-    if @comment.blank?
-      redirect_to request.referer || root_path
-      flash[:warning] = 'It is not your comment'
-    end
+    return if @comment.present?
+
+    redirect_to request.referer || root_path
+    flash[:warning] = 'It is not your comment'
   end
 
   def comment_params
@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
     end
     Post.find(@commentable.commentable_id).increment!(:comments_count)
   end
-  
+
   def decrement_comments_count
     until @comment.commentable_type == 'Post'
       @comment = Comment.find(@comment.commentable_id)

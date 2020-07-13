@@ -31,18 +31,18 @@ gem 'carrierwave', '~> 2.0'
 # active interaction
 gem 'active_interaction', '~> 3.7'
 
-#fog storage
+# fog storage
 gem 'fog-aws', '3.6.5'
 gem 'fog-core'
 
-#database
+# database
 gem 'pg'
 
-#state machine + admin panel
+# state machine + admin panel
 gem 'aasm'
 gem 'activeadmin'
 
-#localization
+# localization
 gem 'i18n'
 
 # rubocop

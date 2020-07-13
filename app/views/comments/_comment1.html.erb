@@ -1,5 +1,5 @@
 
-
+<% collection.each do |comment| %>
 <div class="container">
   <div class="row" style="margin-top: 5px">
     <div class="col-sm-1">
@@ -11,7 +11,7 @@
     <div class="col-sm-5">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <strong><%= comment.user.name %></strong> <span class="text-muted"> <%time_ago_in_words(comment.created_at)%> </span>
+          <strong><%= link_to comment.user.full_name, comment.user %></strong> <span class="text-muted"> <%time_ago_in_words(comment.created_at)%> </span>
         </div>
         <div class="panel-body">
           <%= comment.body %>
@@ -23,10 +23,11 @@
       <div class="reply-form" style="margin-top:15px">
         <%= form_for :comment, url: comments_comments_path(comment) do |f| %>
           <%= f.text_area :body, size:"20x1", placeholder: "Add a Reply" %><br/>
-          <%= f.submit "Reply"  %>
+          <%= f.submit "Reply" %>
         <% end %>
       </div>
-      <%= render partial: 'comments/comment', collection: comment.comments %>
+      <%= render partial: 'comments/comment1', locals: {collection: comment.comments} if comment.comments.present? %>
     </div>
   </div>
 </div>
+<% end %>

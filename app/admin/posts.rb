@@ -69,7 +69,7 @@ ActiveAdmin.register Post do
 
   show do
     attributes_table do
-      photo = Post.find_by(id: params[:id])
+      post = Post.find_by(id: params[:id])
       row :photo do |ad|
         image_tag ad.photo.show.url
       end
@@ -94,14 +94,14 @@ ActiveAdmin.register Post do
   end
 
   member_action :approve do
-    photo = Post.find_by(id: params[:id])
-    resource.approve!
+    post = Post.find_by(id: params[:id])
+    post.approve!
     redirect_to admin_posts_path
   end
 
   member_action :ban do
-    photo = Post.find_by(id: params[:id])
-    resource.ban!
+    post = Post.find_by(id: params[:id])
+    post.ban!
     redirect_to admin_posts_path
   end
 

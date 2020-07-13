@@ -39,21 +39,20 @@ class Post < ApplicationRecord
     state :banned
     state :deleted
     event :approve do
-      transitions to: :approved, from: [:moderated, :banned]
+      transitions to: :approved, from: %i[moderated banned]
     end
 
     event :ban do
-      transitions to: :banned, from: [:moderated, :approved]
+      transitions to: :banned, from: %i[moderated approved]
     end
 
     event :delete do
-      transitions to: :deleted, from: [:moderated, :approved, :banned]
+      transitions to: :deleted, from: %i[moderated approved banned]
     end
 
     event :restore do
       transitions from: :deleted, to: :moderated
     end
-
   end
 
   def photo_size

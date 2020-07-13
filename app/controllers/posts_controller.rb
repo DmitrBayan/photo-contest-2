@@ -3,13 +3,12 @@
 class PostsController < ApplicationController
   before_action :must_logged, only: %i[create destroy new]
 
-  def new
-  end
+  def new; end
 
   def index
     @posts = Post.approved
-              .where(['title LIKE ?', "%#{params[:search]}%"])
-              .reorder(params[:sorting])
+    @posts = @posts.where(['title LIKE ?', "%#{params[:search]}%"])
+    @posts = @posts.reorder(params[:sorting])
   end
 
   def show
@@ -44,5 +43,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :photo, :description)
   end
-
 end
