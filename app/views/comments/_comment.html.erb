@@ -1,5 +1,4 @@
-
-<% comments.each do |comment| %>
+<% collection.each do |comment| %>
 <div class="container">
   <div class="row" style="margin-top: 5px">
     <div class="col-sm-1">
@@ -21,9 +20,9 @@
         <%= link_to "Delete comment", post_comment_path(@post),class: "btn btn-sm btn-outline-danger" ,method: :delete, data: { confirm: "You sure?" } %>
       <% end %>
       <div class="reply">
-            <%= render 'shared/reply_form', parent_comment_id: comment, user: current_user, post: comment.post if comment.present? %>
+            <%= render 'shared/reply_form', info: {parent_comment_id: comment.id, post_id: comment.post.id} if comment.present? %>
       </div>
-      <%= render partial: 'comments/comment', comments: comment.replies if comment.replies.present? %>
+      <%= render partial: 'comments/comment', locals: {collection: comment.replies} if comment.replies.present? %>
       </div>
     </div>
   </div>
