@@ -1,12 +1,13 @@
-
-  <div class="dropdown">
-    <button class="dropbtn">Sort</button>
-    <div class="dropdown-content">
-      <%= link_to 'Date ▼', posts_path(sorting: 'created_at DESC') %>
-      <%= link_to 'Date ▲', posts_path(sorting: 'created_at ASC') %>
-      <%= link_to 'Like ▼', posts_path(sorting: 'likes_count DESC') %>
-      <%= link_to 'Like ▲', posts_path(sorting: 'likes_count ASC') %>
-      <%= link_to 'Comment ▼', posts_path(sorting: 'comments_count DESC') %>
-      <%= link_to 'Comment ▲', posts_path(sorting: 'comments_count ASC') %>
-    </div>
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort
+  </button>
+  <div class="dropdown-menu">
+    <%= link_to 'Date ▼', posts_path(sorting: 'created_at DESC'), class: "dropdown-item red" %>
+    <%= link_to 'Date ▲', posts_path(sorting: 'created_at ASC'), class: "dropdown-item" %>
+    <%= link_to 'Like ▼', posts_path(sorting: 'likes_count DESC'), class: "dropdown-item" %>
+    <%= link_to 'Like ▲', posts_path(sorting: 'likes_count ASC'), class: "dropdown-item" %>
+    <%= link_to 'Comment ▼', posts_path(sorting: 'comments_count DESC'), class: "dropdown-item" %>
+    <%= link_to 'Comment ▲', posts_path(sorting: 'comments_count ASC'), class: "dropdown-item" %>
   </div>
+</div>

@@ -17,7 +17,7 @@
 							</p>
 							<div class="d-flex justify-content-between align-items-center">
                 				<div class="btn-group">
-                  					<button type="button" class="btn btn-sm btn-outline-secondary"> <%= link_to "View", post %> </button>
+                  					<%= link_to "View", post, class: "btn btn-sm btn-outline-secondary" %>
                   					<%= link_to "Like", post_likes_path(post),class: "btn btn-sm btn-outline-secondary", method: :post %>
                   					<button type="button" class="btn btn-sm btn-outline-secondary" disabled> <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes' %> </button>
                 				</div>

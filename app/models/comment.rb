@@ -25,9 +25,18 @@
 #
 class Comment < ApplicationRecord
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :post, counter_cache: :comments_count
 
-  validates :body, presence: true
+  has_many :replies,
+           class_name: 'Comment',
+           foreign_key: 'parent_comment_id',
+           dependent: :destroy,
+           inverse_of: :comment
 
-  has_many :comments, as: :commentable, dependent: :destroy, inverse_of: :commentable
+  belongs_to :parent_comment,
+             class_name: 'Comment',
+             optional: true,
+             inverse_of: :comments
+
+  validates :body, presence: true, length: { minimum: 1 }
 end

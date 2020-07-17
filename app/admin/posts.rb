@@ -3,63 +3,39 @@
 ActiveAdmin.register Post do
   config.clear_action_items!
   config.per_page = [5, 10, 50, 100]
-  permit_params :name, :disposition
-
-  controller do
-    def destroy
-      resource.delete!
-      redirect_to admin_posts_path
-    end
-  end
+  permit_params :name, :description
 
   batch_action I18n.t(:ban) do |ids|
     batch_action_collection.find(ids).each do |post|
-      post.ban! :ban
+      post.ban! :ban unless post.banned?
     end
     redirect_to admin_posts_path
   end
 
   batch_action I18n.t(:approve) do |ids|
     batch_action_collection.find(ids).each do |post|
-      post.approve! :approve
+      post.approve! :approve unless post.approved?
     end
     redirect_to admin_posts_path
   end
 
-  batch_action :destroy do |ids|
-    batch_action_collection.find(ids).each do |post|
-      post.delete! :delete
-    end
-    redirect_to admin_posts_path
-  end
+  batch_action :destroy, false
 
   index do
     selectable_column
     column :title
-    column :photo do |pg|
-      image_tag pg.photo.admin.url
+    column :photo do |post|
+      image_tag post.photo.admin.url
     end
     column :aasm_state
-    column :moderation do |pg|
+    column :moderation do |post|
       columns do
-        if pg.aasm_state == 'moderated'
+        if post.moderated?
           column do
-            link_to :approve, approve_admin_post_path(pg), class: 'button2'
+            link_to :approve, approve_admin_post_path(post), class: 'button2'
           end
           column do
-            link_to :ban, ban_admin_post_path(pg), class: 'button1'
-          end
-        elsif pg.aasm_state == 'approved'
-          column do
-            link_to :ban, ban_admin_post_path(pg), class: 'button1'
-          end
-        elsif pg.aasm_state == 'deleted'
-          column do
-            link_to :restore, restore_admin_post_path(pg), class: 'button2'
-          end
-        else
-          column do
-            link_to :approve, approve_admin_post_path(pg), class: 'button2'
+            link_to :ban, ban_admin_post_path(post), class: 'button1'
           end
         end
       end
@@ -69,14 +45,13 @@ ActiveAdmin.register Post do
 
   show do
     attributes_table do
-      post = Post.find_by(id: params[:id])
       row :photo do |ad|
         image_tag ad.photo.show.url
       end
       row :title
       row :description
       row :author, :user_id do
-        link_to('Author', User.find(post.user_id))
+        link_to(post.user.full_name, post.user)
       end
       row :created_at
       row :updated_at
@@ -94,13 +69,11 @@ ActiveAdmin.register Post do
   end
 
   member_action :approve do
-    post = Post.find_by(id: params[:id])
     post.approve!
     redirect_to admin_posts_path
   end
 
   member_action :ban do
-    post = Post.find_by(id: params[:id])
     post.ban!
     redirect_to admin_posts_path
   end

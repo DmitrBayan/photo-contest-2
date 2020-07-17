@@ -27,7 +27,7 @@ class Post < ApplicationRecord
   belongs_to :user
   mount_uploader :photo, PhotoUploader
 
-  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
   validates :title, :photo, presence: true

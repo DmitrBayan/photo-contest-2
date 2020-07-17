@@ -3,7 +3,8 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts.paginate(page: params[:page]).approved
+
+    @posts = @user.posts.where(params[:filter])
   end
 
   def index

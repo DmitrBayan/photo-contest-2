@@ -1,0 +1,25 @@
+<% comments.each do |comment| %>
+	<div class="container">
+		<div class="media">
+			<div class="media-left">
+				<%= image_tag comment.user.image_url %>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading title">
+					<%= link_to comment.user.full_name, comment.user %>
+				</h4>
+				<div class="comment">
+					<%= simple_format(comment.body) %>
+				</div>
+				<span class="text-muted"> <% comment.created_at.strftime("%H:%M %d %m, %Y") %> </span>
+			</div>
+			<% if current_user?(comment.user) %>
+        		<%= link_to "Delete comment", post_comment_path(@post),class: "btn btn-sm btn-outline-danger" ,method: :delete, data: { confirm: "You sure?" } %>
+      		<% end %>
+      		<div class="reply">
+      			<%= render 'shared/reply_form', parent_comment_id: comment, user: current_user, post: comment.post %>
+      		</div>
+      		<%= render partial: 'comments/comment', comments: comment.comments if comment.comments.present? %>
+      	</div>
+    </div>
+<% end %>

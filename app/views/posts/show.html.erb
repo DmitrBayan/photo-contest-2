@@ -23,6 +23,6 @@
   </div>
   <ul>
       <%= render 'shared/comment_form' %>
-      <%= render 'comments/comment1', collection: @post.comments %>
-   </ul>
+      <%= render 'comments/comment', comments: @comments if @comments.present? %>
+  </ul>
 </div>
