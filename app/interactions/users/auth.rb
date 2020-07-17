@@ -10,7 +10,7 @@ module Users
       when 'facebook'
         from_fb
       else
-        user.errors.add('Unknown provider')
+        user.errors.add(:base, 'Unknown provider')
       end
       user.save ? user : user.errors
     end

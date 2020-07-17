@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.paginate(page: params[:page])
-    @users = @users.where(['first_name LIKE ?', "%#{params[:search]}%"])
-    @users = @users.reorder(params[:sorting])
+    @users = User.where(['first_name LIKE ?', "%#{params[:search]}%"])
+                 .reorder(params[:sorting])
+                 .paginate(page: params[:page])
   end
 
   def edit

@@ -7,8 +7,8 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.approved
-    @posts = @posts.where(['title LIKE ?', "%#{params[:search]}%"])
-    @posts = @posts.reorder(params[:sorting])
+                 .where(['title LIKE ?', "%#{params[:search]}%"])
+                 .reorder(params[:sorting])
   end
 
   def show
@@ -29,11 +29,11 @@ class PostsController < ApplicationController
 
   def destroy
     @post = current_user.posts.find(params[:id])
-    if @post.blank?
-      flash[:warning] = "It's not your post!"
-    else
+    if @post.present?
       @post.destroy
       flash[:success] = 'Post deleted'
+    else
+      flash[:warning] = "It's not your post!"
     end
     redirect_to request.referer || root_path
   end

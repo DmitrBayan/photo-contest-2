@@ -18,9 +18,9 @@
 #  name         :string
 #
 class User < ApplicationRecord
-  has_many :posts, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  has_many :posts, dependent: :destroy, inverse_of: :users
+  has_many :comments, dependent: :destroy, inverse_of: :users
+  has_many :likes, dependent: :destroy, inverse_of: :users
 
   validates :access_token, :uid, :provider, presence: true
 
