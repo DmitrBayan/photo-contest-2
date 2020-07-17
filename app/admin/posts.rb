@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Post do
   config.clear_action_items!
   config.per_page = [5, 10, 50, 100]
   permit_params :name, :disposition
-
 
   controller do
     def destroy
@@ -68,20 +69,20 @@ ActiveAdmin.register Post do
 
   show do
     attributes_table do
-      photo = Post.find_by(id: params[:id])
+      post = Post.find_by(id: params[:id])
       row :photo do |ad|
         image_tag ad.photo.show.url
       end
       row :title
+      row :description
       row :author, :user_id do
-        link_to('Author', User.find_by_id(photo.user_id))
+        link_to('Author', User.find(post.user_id))
       end
       row :created_at
       row :updated_at
       row :id
       row :aasm_state
     end
-
   end
 
   form do |f|
@@ -93,14 +94,14 @@ ActiveAdmin.register Post do
   end
 
   member_action :approve do
-    photo = Post.find_by(id: params[:id])
-    resource.approve!
+    post = Post.find_by(id: params[:id])
+    post.approve!
     redirect_to admin_posts_path
   end
 
   member_action :ban do
-    photo = Post.find_by(id: params[:id])
-    resource.ban!
+    post = Post.find_by(id: params[:id])
+    post.ban!
     redirect_to admin_posts_path
   end
 

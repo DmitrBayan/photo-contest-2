@@ -1,26 +1,15 @@
-<% provide(:title, @user.first_name + " " + @user.last_name) %>
-<div class="row">
-    <aside class="col-md-4">
-      <section>
-        <h1>
-          <img src=<%= @user.image_url %> alt="User"/>
-          <%= @user.first_name %>
-          <%= @user.last_name %>
-          <h3><a href="<%= @user.url %>">Social</a></h3>
-        </h1>
-      </section>
-        <section class="post_form">
-          <%= render 'shared/post_form' %>
-        </section>
-    </aside>
-    <div class="col-md-8">
-      <% if @user.posts.any? %>
-        <h3>Posts (<%= @user.posts.approved.count %>)</h3>
-        <ol class="posts">
-          <%= render @posts %>
-        </ol>
-        <%= will_paginate @posts %>
-      <% end %>
-    </div>
+<% provide(:title, @user.full_name) %>
 
-  </div>
+<section class="jumbotron text-center">
+	<div class="container" style="padding-bottom: 17px">
+		<img src=<%= @user.image_url %> alt="User"/>
+    	<h1 class="jumbotron-heading"><%= @user.full_name %></h1>
+    	<% if current_user?(@user) %>
+    		<p class="lead text-muted" >Would you like to post a photo?</p>
+        	<p>
+        		<%= link_to "+", new_post_url, class: "btn btn-lg btn-success" %>
+        	</p>
+        <% end %>
+    </div>
+    <%= render 'shared/posts_index' %>
+</section>

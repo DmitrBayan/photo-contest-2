@@ -363,7 +363,6 @@ DEPENDENCIES
   fog-core
   i18n
   jbuilder (~> 2.7)
-  kaminari
   listen (~> 3.2)
   omniauth-facebook
   omniauth-vkontakte
