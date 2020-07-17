@@ -1,0 +1,6 @@
+<%= form_for :comment, url: post_comments_comments_path(info) do |f| %>
+  <div class="field">
+    <%= f.text_area :body, placeholder: "...reply..." %>
+  </div>
+  <%= f.submit "Reply", class: "btn btn-primary" %>
+<% end %>

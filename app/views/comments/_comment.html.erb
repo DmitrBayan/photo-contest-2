@@ -1,13 +1,30 @@
-<li class="comment">
-  <%= comment.body %> -
-  <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago</small>
-  <%= form_for :comment, url: comments_comments_path(comment) do |f| %>
-    <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
-    <%= f.submit "Reply"  %>
-  <% end %>
+<% collection.each do |comment| %>
+<div class="container">
+  <div class="row" style="margin-top: 5px">
+    <div class="col-sm-1">
+      <div class="thumbnail">
+        <img class="img-responsive user-photo" src=<%= comment.user.image_url %>>
+      </div>
+    </div>
 
-  <ul>
-    <%= render partial: 'comments/comment', collection: comment.comments %>
-  </ul>
-
-</li>
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong><%= link_to comment.user.full_name, comment.user %></strong> <span class="text-muted"> <%time_ago_in_words(comment.created_at)%> </span>
+        </div>
+        <div class="panel-body">
+          <%= comment.body %>
+        </div>
+      </div>
+      <% if current_user?(comment.user) %>
+        <%= link_to "Delete comment", post_comment_path(@post),class: "btn btn-sm btn-outline-danger" ,method: :delete, data: { confirm: "You sure?" } %>
+      <% end %>
+      <div class="reply">
+            <%= render 'shared/reply_form', info: {parent_comment_id: comment.id, post_id: comment.post.id} if comment.present? %>
+      </div>
+      <%= render partial: 'comments/comment', locals: {collection: comment.replies} if comment.replies.present? %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

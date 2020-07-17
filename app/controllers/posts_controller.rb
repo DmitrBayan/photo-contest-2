@@ -1,43 +1,46 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :logged?, only: %i[create destroy]
-  before_action :correct_user, only: :destroy
+  before_action :must_logged, only: %i[create destroy new]
+
+  def new; end
 
   def index
-    @posts = Post.page(params[:page]).approved.reorder(params[:sorting])
-    @posts = Post.page(params[:page]).approved unless params[:sorting].present?
+    @posts = Post.approved
+                 .where(['title LIKE ?', "%#{params[:search]}%"])
+                 .reorder(params[:sorting])
   end
 
   def show
-    @post = Post.find_by(id: params[:post_id])
+    @post = Post.find(params[:id])
+    @comments = @post.comments
   end
 
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:success] = 'Post created!'
+      flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
-      redirect_to request.referrer || root_path
       flash[:warning] = @post.errors.full_messages.to_sentence
+      redirect_to request.referer || root_path
     end
   end
 
   def destroy
-    @post.destroy
-    flash[:success] = 'Post deleted'
-    redirect_to request.referrer || current_user
+    @post = current_user.posts.find(params[:id])
+    if @post.present?
+      @post.destroy
+      flash[:success] = 'Post deleted'
+    else
+      flash[:warning] = "It's not your post!"
+    end
+    redirect_to request.referer || root_path
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :photo)
-  end
-
-  def correct_user
-    @post = current_user.posts.find(params[:id])
-    redirect_to root_path if @post.blank?
+    params.require(:post).permit(:title, :photo, :description)
   end
 end

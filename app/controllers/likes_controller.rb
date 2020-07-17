@@ -1,33 +1,22 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  before_action :find_post
-  before_action :find_like
+  before_action :find_post, :must_logged
 
   def create
-    if already_liked?
-      @like.destroy
+    if @post.likes.find_by(user_id: current_user).present?
+      ::Likes::Destroy.run(post: @post, user: current_user)
       flash[:success] = 'Unliked!'
     else
-      @post.likes.create(user_id: current_user.id)
+      ::Likes::Create.run(post: @post, user: current_user)
       flash[:success] = 'Liked!'
     end
-    redirect_to request.referrer || root_path
+    redirect_to request.referer || root_path
   end
-
-  def destroy; end
 
   private
 
   def find_post
     @post = Post.find(params[:post_id])
-  end
-
-  def already_liked?
-    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
-  end
-
-  def find_like
-    @like = @post.likes.find_by(params[:id])
   end
 end

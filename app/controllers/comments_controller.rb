@@ -3,40 +3,39 @@
 class CommentsController < ApplicationController
   before_action :logged?, only: %i[create destroy]
   before_action :correct_user, only: :destroy
-  before_action :find_commentable, only: :create
+
+  def new
+    @comment = ::Comments::Create.new
+  end
 
   def create
-    @comment = @commentable.comments.build(comment_params)
-    @comment.user_id = current_user.id
-    if @comment.save
-      flash[:success] = 'Commented!'
-      redirect_to request.referrer
-    else
-      redirect_to request.referrer || root_path
-      flash[:warning] = @comment.errors.full_messages.to_sentence
-    end
+    @post = Post.find(params[:post_id])
+    outcome = Comments::Create.run(comment_params)
+    return unless outcome.valid?
+
+    flash[:success] = 'Commented.'
+    redirect_to @post
   end
 
   def destroy
     @comment.destroy
-    flash[:success] = 'Comment deleted'
-    redirect_to request.referrer || current_user
+    flash[:success] = 'Comment deleted.'
+    redirect_to request.referer || current_user
   end
 
   private
 
   def correct_user
-    @comment = current_user.posts.comments.find(params[:id])
-    redirect_to root_path if @comment.blank?
-    flash[:warning] = 'It is not your comment'
+    @comment = current_user.comments.find_by(params[:id])
+    return if @comment.present?
+
+    redirect_to request.referer || root_path
+    flash[:warning] = 'It is not your comment!'
   end
 
   def comment_params
-    params.require(:comment).permit(:body)
-  end
-
-  def find_commentable
-    @commentable = Comment.find(params[:format]) if params[:format]
-    @commentable = Post.find(params[:post_id]) if params[:post_id]
+    { post: @post, user: current_user,
+      body: params[:comment]['body'],
+      parent_comment_id: params[:parent_comment_id] }
   end
 end

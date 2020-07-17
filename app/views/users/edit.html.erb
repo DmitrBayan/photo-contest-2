@@ -1,0 +1,36 @@
+<% if current_user %>
+
+<%= form_for(@user) do |f| %>
+<div class="container">
+    <h1>Update user info</h1>
+    <hr>
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <div class="col-lg-8">
+              <%= f.label :first_name %>
+              <%= f.text_field :first_name, class: 'form-control' , required: true%>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-8">
+              <%= f.label :last_name %>
+              <%= f.text_field :last_name, class: 'form-control', required: true %>
+            </div>
+          </div>
+
+            <div class="col-md-8">
+              <%= f.submit "Save", class: "btn btn-secondary" %>
+              <span></span>
+              <input type="reset" class="btn btn-secondary" value="Cancel">
+            </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+<hr>
+<%end%>
+<%end%>
