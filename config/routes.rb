@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     resources :comments
     resource :likes
   end
-  get '/post/:id/comments/:parent_comment_id/comments' => 'comments#create', as: 'post_comments_comments'
-
+  post '/posts/:post_id/comments/:parent_comment_id/comments' => 'comments#create', as: 'post_comments_comments'
   match '*not_found' => 'errors#error_404', via: :all
 end

@@ -1,25 +1,31 @@
+
 <% comments.each do |comment| %>
-	<div class="container">
-		<div class="media">
-			<div class="media-left">
-				<%= image_tag comment.user.image_url %>
-			</div>
-			<div class="media-body">
-				<h4 class="media-heading title">
-					<%= link_to comment.user.full_name, comment.user %>
-				</h4>
-				<div class="comment">
-					<%= simple_format(comment.body) %>
-				</div>
-				<span class="text-muted"> <% comment.created_at.strftime("%H:%M %d %m, %Y") %> </span>
-			</div>
-			<% if current_user?(comment.user) %>
-        		<%= link_to "Delete comment", post_comment_path(@post),class: "btn btn-sm btn-outline-danger" ,method: :delete, data: { confirm: "You sure?" } %>
-      		<% end %>
-      		<div class="reply">
-      			<%= render 'shared/reply_form', parent_comment_id: comment, user: current_user, post: comment.post %>
-      		</div>
-      		<%= render partial: 'comments/comment', comments: comment.comments if comment.comments.present? %>
-      	</div>
+<div class="container">
+  <div class="row" style="margin-top: 5px">
+    <div class="col-sm-1">
+      <div class="thumbnail">
+        <img class="img-responsive user-photo" src=<%= comment.user.image_url %>>
+      </div>
     </div>
+
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong><%= link_to comment.user.full_name, comment.user %></strong> <span class="text-muted"> <%time_ago_in_words(comment.created_at)%> </span>
+        </div>
+        <div class="panel-body">
+          <%= comment.body %>
+        </div>
+      </div>
+      <% if current_user?(comment.user) %>
+        <%= link_to "Delete comment", post_comment_path(@post),class: "btn btn-sm btn-outline-danger" ,method: :delete, data: { confirm: "You sure?" } %>
+      <% end %>
+      <div class="reply">
+            <%= render 'shared/reply_form', parent_comment_id: comment, user: current_user, post: comment.post if comment.present? %>
+      </div>
+      <%= render partial: 'comments/comment', comments: comment.replies if comment.replies.present? %>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>

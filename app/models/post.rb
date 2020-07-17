@@ -4,22 +4,16 @@
 #
 # Table name: posts
 #
-#  id         :bigint           not null, primary key
-#  aasm_state :string
-#  photo      :string
-#  title      :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
-#
-# Indexes
-#
-#  index_posts_on_user_id                 (user_id)
-#  index_posts_on_user_id_and_created_at  (user_id,created_at)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
+#  id             :bigint           not null, primary key
+#  user_id        :bigint           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  photo          :string
+#  aasm_state     :string
+#  likes_count    :integer          default(0), not null
+#  comments_count :integer          default(0), not null
+#  description    :text
+#  title          :string
 #
 class Post < ApplicationRecord
   include AASM

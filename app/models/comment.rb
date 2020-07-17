@@ -4,24 +4,13 @@
 #
 # Table name: comments
 #
-#  id               :bigint           not null, primary key
-#  body             :text
-#  commentable_type :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  comment_id       :bigint
-#  commentable_id   :integer
-#  user_id          :bigint           not null
-#
-# Indexes
-#
-#  index_comments_on_comment_id  (comment_id)
-#  index_comments_on_user_id     (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (comment_id => comments.id)
-#  fk_rails_...  (user_id => users.id)
+#  id                :bigint           not null, primary key
+#  body              :text
+#  user_id           :bigint           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  post_id           :integer
+#  parent_comment_id :integer
 #
 class Comment < ApplicationRecord
   belongs_to :user
@@ -29,14 +18,14 @@ class Comment < ApplicationRecord
 
   has_many :replies,
            class_name: 'Comment',
-           foreign_key: 'parent_comment_id',
            dependent: :destroy,
-           inverse_of: :comment
+           foreign_key: 'parent_comment_id',
+           inverse_of: :parent_comment
 
   belongs_to :parent_comment,
              class_name: 'Comment',
              optional: true,
-             inverse_of: :comments
+             inverse_of: :replies
 
   validates :body, presence: true, length: { minimum: 1 }
 end
