@@ -5,8 +5,7 @@
   "entrypoints": {
     "application": {
       "js": [
-        "/packs/js/application-9afcbb5693aa87623e69.js",
-        "/packs/js/errors.js"
+        "/packs/js/application-9afcbb5693aa87623e69.js"
       ],
       "js.map": [
         "/packs/js/application-9afcbb5693aa87623e69.js.map"
