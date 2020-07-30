@@ -31,8 +31,8 @@ gem 'carrierwave', '~> 2.0'
 # active interaction
 gem 'active_interaction', '~> 3.7'
 
-# fog storage
-gem 'fog-aws', '3.6.5'
+# storage
+gem "aws-sdk-s3", require: false
 gem 'fog-core'
 
 # database
