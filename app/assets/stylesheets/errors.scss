@@ -2,75 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import url("https://fonts.googleapis.com/css?family=Bevan");
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: black;
-  overflow: hidden;
-}
-
-p {
-  font-family: "Bevan", cursive;
-  font-size: 130px;
-  margin: 10vh 0 0;
+body { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);}
+.error-template {
+  padding: 40px 15px;
   text-align: center;
-  letter-spacing: 5px;
-  background-color: black;
-  color: transparent;
-  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-
-  span {
-    font-size: 1.2em;
-  }
 }
-
-code {
-  color: #bdbdbd;
-  text-align: center;
-  display: block;
-  font-size: 16px;
-  margin: 0 30px 25px;
-
-  span {
-    color: #f0c674;
-  }
-
-  i {
-    color: #b5bd68;
-  }
-
-  em {
-    color: #b294bb;
-    font-style: unset;
-  }
-
-  b {
-    color: #81a2be;
-    font-weight: 500;
-  }
+.error-actions {
+  margin-top:15px;
+  margin-bottom:15px;
 }
-
-
-a {
-  color: #8abeb7;
-  font-family: monospace;
-  font-size: 20px;
-  text-decoration: underline;
-  margin-top:10px;
-  display:inline-block
-}
-
-@media screen and (max-width: 880px) {
-  p {
-    font-size: 14vw;
-  }
+.error-actions .btn {
+  margin-right:10px;
 }

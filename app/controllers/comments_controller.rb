@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
   private
 
   def correct_user
-    @comment = current_user.comments.find_by(params[:id])
+    @comment = current_user.comments.find_by(params[:comment_id])
     return if @comment.present?
 
     redirect_to request.referer || root_path

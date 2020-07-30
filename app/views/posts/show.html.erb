@@ -1,28 +1,28 @@
 <% provide(:title, @post.title) %>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-        <%= image_tag(@post.photo.url, alt: 'Image') %>
+      <%= image_tag(@post.photo.url, alt: 'Image') %>
     </div>
     <div class="col-md-7">
-      	<h4><%= @post.title %></h4>
-      	<p style="background:#eaf9fe"><%= @post.description %></p>
-      	<div class="d-flex justify-content-between align-items-center">
-      		<div class="btn-group">
-            	<%= link_to "Like", post_likes_path(@post),class: "btn btn-sm btn-outline-secondary", method: :post %>
-            	<button type="button" class="btn btn-sm btn-outline-secondary" disabled> <%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes' %> </button>
-            	<% if current_user?(@post.user) %>
-      				<%= link_to "Delete photo", @post, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "You sure?" } %> </button>
-  				<% end %>
-        	</div>
-      	</div>
-      	<small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago.</small>
-        <small class="text-muted"><%= @post.user.full_name %></small>
+      <h4><%= @post.title %></h4>
+      <p style="background:#eaf9fe"><%= @post.description %></p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <%= link_to "Like", post_likes_path(@post), class: "btn btn-sm btn-outline-secondary", method: :post %>
+          <button type="button" class="btn btn-sm btn-outline-secondary" disabled> <%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes' %> </button>
+          <% if current_user?(@post.user) %>
+            <%= link_to "Delete photo", @post, method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "You sure?"} %>
+          <% end %>
+        </div>
+      </div>
+      <small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago.</small>
+      <small class="text-muted"><%= @post.user.full_name %></small>
     </div>
   </div>
   <ul>
-      <%= render 'shared/comment_form' %>
-      <%= render 'comments/comment', collection: @post.comments if @post.comments.present? %>
+    <%= render 'shared/comment_form' %>
+    <%= render 'comments/comment', collection: @post.comments.where({parent_comment_id: nil}) if @post.comments.present? %>
   </ul>
 </div>

@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.approved
-                 .where(['title LIKE ?', "%#{params[:search]}%"])
+                 .where(["title || ' ' || description LIKE ?", "%#{params[:search]}%"])
                  .reorder(params[:sorting])
   end
 
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
     else
       flash[:warning] = "It's not your post!"
     end
-    redirect_to request.referer || root_path
+    redirect_to root_path
   end
 
   private

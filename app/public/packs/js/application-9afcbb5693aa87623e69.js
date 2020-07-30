@@ -2144,7 +2144,7 @@ Released under the MIT license
   !*** ./node_modules/turbolinks/dist/turbolinks.js ***!
   \****************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3178,8 +3178,22 @@ Copyright © 2018 Basecamp, LLC
     }.call(this), function () {
       !function () {
         var t, e;
-        if ((t = e = document.currentScript) && !e.hasAttribute("data-turbolinks-suppress-warning")) for (; t = t.parentNode;) {
-          if (t === document.body) return console.warn("You are loading Turbolinks from a <script> element inside the <body> element. This is probably not what you meant to do!\n\nLoad your application\u2019s JavaScript bundle inside the <head> element instead. <script> elements in <body> are evaluated with each page change.\n\nFor more information, see: https://github.com/turbolinks/turbolinks#working-with-script-elements\n\n\u2014\u2014\nSuppress this warning by adding a `data-turbolinks-suppress-warning` attribute to: %s", e.outerHTML);
+        if (t = e = document.currentScript) {
+          if (!e.hasAttribute("data-turbolinks-suppress-warning")) {
+            for (; t = t.parentNode;) {
+              if (t === document.body) {
+                return console.warn("You are loading Turbolinks from a <script> element inside the <body> element. This is probably not what you meant to do!" +
+                    "\n\n" +
+                    "Load your application\u2019s JavaScript bundle inside the <head> element instead. <script> elements in <body> are evaluated with each page change." +
+                    "\n\n" +
+                    "For more information, see: https://github.com/turbolinks/turbolinks#working-with-script-elements" +
+                    "\n\n" +
+                    "\u2014\u2014" +
+                    "\n" +
+                    "Suppress this warning by adding a `data-turbolinks-suppress-warning` attribute to: %s", e.outerHTML);
+              }
+            }
+          }
         }
       }();
     }.call(this), function () {
@@ -3195,15 +3209,15 @@ Copyright © 2018 Basecamp, LLC
         return window.Turbolinks === e;
       }, n() && e.start();
     }.call(this);
-  }).call(this), "object" == ( false ? undefined : _typeof(module)) && module.exports ? module.exports = e :  true && !(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+  }).call(this), "object" == ( false ? undefined : _typeof(module)) && module.exports ? module.exports = e :  true && !(__WEBPACK_AMD_DEFINE_FACTORY__ = e,
+				__WEBPACK_AMD_DEFINE_RESULT__ = typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_FACTORY__,
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 }).call(this);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
-/***/ }),
+/***/ },
 
 /***/ "./node_modules/webpack/buildin/module.js":
 /*!***********************************!*\
