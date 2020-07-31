@@ -33,6 +33,9 @@ gem 'active_interaction', '~> 3.7'
 
 # storage
 gem 'aws-sdk', '~> 3'
+
+# fog
+gem 'fog-aws'
 gem 'fog-core'
 
 # database
