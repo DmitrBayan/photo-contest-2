@@ -8,6 +8,6 @@ if Rails.env.production?
      aws_secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
      aws_bucket: Rails.application.credentials.dig(:aws, :bucket)
    }
-   config.fog_directory = ENV['S3_BUCKET']
+   config.fog_directory = Rails.application.credentials.dig(:aws, :bucket)
  end
 end
