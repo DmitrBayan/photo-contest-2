@@ -20,11 +20,11 @@ class PostsController < ApplicationController
   def create
     outcome = ::Posts::Create.run(post_params)
     if outcome.valid?
-      @post = outcome
+      @post = outcome.result
       flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
-      flash[:warning] = outcome.errors.full_messages.to_s
+      flash[:warning] = outcome.errors.full_messages
       render 'new'
     end
   end

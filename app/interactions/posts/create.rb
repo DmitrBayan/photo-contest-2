@@ -8,7 +8,8 @@ module Posts
     file :photo, class: ::PhotoUploader
 
     def execute
-      user.posts.build(title: title, description: description, photo: photo)
+      post = user.posts.build(title: title, description: description, photo: photo)
+      post.save ? post : post.errors
     end
   end
 end
