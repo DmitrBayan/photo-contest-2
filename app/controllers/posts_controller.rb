@@ -7,7 +7,8 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.approved
-                 .where(["title || ' ' || description LIKE ?", "%#{params[:search]}%"])
+                 .where(["lower(title) || ' ' || lower(description) LIKE ?",
+                         "%#{params[:search].downcase if params[:search].present?}%"])
                  .reorder(params[:sorting])
   end
 
@@ -17,13 +18,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
+    outcome = ::Posts::Create.run(post_params)
+    if outcome.valid?
+      @post = outcome
       flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
-      flash[:warning] = @post.errors.full_messages.to_sentence
-      redirect_to request.referer || root_path
+      flash[:warning] = outcome.errors.full_messages.to_s
+      render 'new'
     end
   end
 
@@ -41,6 +43,11 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :photo, :description)
+    {
+      user: current_user,
+      title: params[:post]['title'],
+      description: params[:post]['description'],
+      photo: params[:post]['photo']
+    }
   end
 end

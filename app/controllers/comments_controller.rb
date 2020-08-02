@@ -2,40 +2,38 @@
 
 class CommentsController < ApplicationController
   before_action :logged?, only: %i[create destroy]
-  before_action :correct_user, only: :destroy
 
-  def new
-    @comment = ::Comments::Create.new
-  end
+  def new; end
 
   def create
     @post = Post.find(params[:post_id])
     outcome = Comments::Create.run(comment_params)
-    return unless outcome.valid?
-
-    flash[:success] = 'Commented.'
+    if outcome.valid?
+      flash[:success] = 'Commented.'
+    else
+      flash[:warning] = outcome.errors.full_messages.to_s
+    end
     redirect_to @post
   end
 
   def destroy
-    @comment.destroy
-    flash[:success] = 'Comment deleted.'
-    redirect_to request.referer || current_user
+    @comment = Post.find(params[:post_id]).comments.find_by(user_id: current_user.id)
+    if @comment.present?
+      @comment.destroy
+      flash[:success] = 'Comment deleted.'
+    else
+      flash[:warning] = "It's not your comment!"
+    end
+    redirect_to request.referer
   end
 
   private
 
-  def correct_user
-    @comment = current_user.comments.find_by(params[:comment_id])
-    return if @comment.present?
-
-    redirect_to request.referer || root_path
-    flash[:warning] = 'It is not your comment!'
-  end
-
   def comment_params
-    { post: @post, user: current_user,
+    {
+      post: @post, user: current_user,
       body: params[:comment]['body'],
-      parent_comment_id: params[:parent_comment_id] }
+      parent_comment_id: params[:parent_comment_id]
+    }
   end
 end

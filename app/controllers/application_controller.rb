@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
 
   def render_404
     respond_to do |format|
-      format.html { render 'errors/error_404', status: 404 }
-      format.all { render nothing: true, status: 404 }
+      format.html { render 'errors/error_404', status: :not_found }
+      format.all { render nothing: true, status: :not_found }
     end
   end
 end
