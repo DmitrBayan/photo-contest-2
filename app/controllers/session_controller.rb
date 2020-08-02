@@ -6,11 +6,11 @@ class SessionController < ApplicationController
     if outcome.valid?
       @user = outcome.result
       session[:user_id] = @user.id
-      flash[:success] = "Welcome, #{@user.name}!"
+      flash[:success] = "Welcome!"
     else
       flash[:warning] = outcome.errors.full_messages
     end
-    redirect_to request.referer
+    redirect_to root_path
   end
 
   def destroy
