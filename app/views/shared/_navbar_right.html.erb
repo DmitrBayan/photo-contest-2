@@ -1,0 +1,31 @@
+<% if logged? %>
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <div class="nav-item nav-link dropdown-toggle mr-md-2" data-toggle="dropdown">
+        <%= current_user.first_name %>
+        <img src=<%= current_user.image_url %> width="40" height="40" alt='User' style = 'border-radius: 50%'/>
+      </div>
+      <div class="dropdown-menu dropdown-menu-right">
+        <%= link_to "My profile", current_user, class: "dropdown-item" %>
+        <%= link_to "Edit name", edit_user_path(current_user), class: "dropdown-item" %>
+        <% if current_user.admin? %>
+          <%= link_to "Admin panel", admin_posts_path, class: "dropdown-item" %>
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to "Logout", logout_path, class: "dropdown-item" %>
+      </div>
+    </li>
+  </ul>
+<% else %>
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Login
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+        <%= link_to "Vkontakte", 'auth/vkontakte', class: "dropdown-item" %>
+        <%= link_to "Facebook", 'auth/facebook', class: "dropdown-item" %>
+      </div>
+    </li>
+  </ul>
+<% end %>
