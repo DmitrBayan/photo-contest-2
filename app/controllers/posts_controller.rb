@@ -10,6 +10,10 @@ class PostsController < ApplicationController
                  .where(["lower(title) || ' ' || lower(description) LIKE ?",
                          "%#{params[:search].downcase if params[:search].present?}%"])
                  .reorder(params[:sorting])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
