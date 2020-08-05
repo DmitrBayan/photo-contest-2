@@ -1,0 +1,4 @@
+<%= link_to post_likes_path(post), class: "btn btn-sm btn-outline-secondary",
+            method: :post, remote: true do %>
+  <p>&hearts; <%= post.likes.count %></p>
+<% end %>

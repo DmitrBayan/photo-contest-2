@@ -6,7 +6,7 @@ class SessionController < ApplicationController
     if outcome.valid?
       @user = outcome.result
       session[:user_id] = @user.id
-      flash[:success] = "Welcome!"
+      flash[:success] = 'Welcome!'
     else
       flash[:warning] = outcome.errors.full_messages
     end

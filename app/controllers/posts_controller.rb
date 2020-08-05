@@ -6,10 +6,13 @@ class PostsController < ApplicationController
   def new; end
 
   def index
-    @posts = Post.approved
-                 .where(["lower(title) || ' ' || lower(description) LIKE ?",
-                         "%#{params[:search].downcase if params[:search].present?}%"])
+    @posts = Post.by_title_or_description(params[:search])
+                 .or(Post.by_user_full_name(params[:search]))
                  .reorder(params[:sorting])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
