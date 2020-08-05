@@ -3,13 +3,15 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-
-    @posts = @user.posts.where(params[:filter])
+    @posts = if @user.eql?(current_user)
+               @user.posts.reorder(params[:sorting])
+             else
+               @user.posts.approved
+             end
   end
 
   def index
-    @users = User.where(['first_name LIKE ?', "%#{params[:search]}%"])
-                 .reorder(params[:sorting])
+    @users = User.by_full_name(params[:search])
                  .paginate(page: params[:page])
   end
 

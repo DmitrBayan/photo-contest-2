@@ -1,9 +1,9 @@
-<div class="btn-group">
+<div class="btn-group" style="margin-bottom: 10px">
   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Sort
   </button>
   <div class="dropdown-menu">
-    <%= link_to 'All posts', user_path(), class: "dropdown-item" %>
+    <%= link_to 'All posts', user_path, class: "dropdown-item" %>
     <%= link_to 'Approved posts', user_path(filter: 'approved'), class: "dropdown-item" %>
     <%= link_to 'Posts on moderation', user_path(filter: 'moderated'), class: "dropdown-item" %>
   </div>

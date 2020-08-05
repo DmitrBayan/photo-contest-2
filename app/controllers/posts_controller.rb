@@ -6,9 +6,13 @@ class PostsController < ApplicationController
   def new; end
 
   def index
-    @posts = Post.approved
-                 .where(['title LIKE ?', "%#{params[:search]}%"])
+    @posts = Post.by_title_or_description(params[:search])
+                 .or(Post.by_user_full_name(params[:search]))
                  .reorder(params[:sorting])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -17,13 +21,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
+    outcome = ::Posts::Create.run(post_params)
+    if outcome.valid?
+      @post = outcome.result
       flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
-      flash[:warning] = @post.errors.full_messages.to_sentence
-      redirect_to request.referer || root_path
+      flash[:warning] = outcome.errors.full_messages
+      render 'new'
     end
   end
 
@@ -35,12 +40,17 @@ class PostsController < ApplicationController
     else
       flash[:warning] = "It's not your post!"
     end
-    redirect_to request.referer || root_path
+    redirect_to root_path
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :photo, :description)
+    {
+      user: current_user,
+      title: params[:post]['title'],
+      description: params[:post]['description'],
+      photo: params[:post]['photo']
+    }
   end
 end

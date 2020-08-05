@@ -17,5 +17,15 @@ module PhotoContest
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Load ENV variables from credentials.yml file
+    config.before_configuration do
+      env_file = Rails.root.join('config/credentials.yml')
+      if File.exist?(env_file)
+        YAML.safe_load(File.open(env_file))[Rails.env].each do |key, value|
+          ENV[key.to_s] = value
+        end
+      end
+    end
   end
 end

@@ -1,16 +1,24 @@
-<p>HTTP: <span>404</span></p>
-<code>
-  <span>this_page</span>.<em>not_found</em> = true;
-</code>
-<code>
-  <span>if</span> (<b>you_spelt_it_wrong</b>) {<span>try_again()</span>;}
-</code>
-<code>
-  <span>else if (<b>we_screwed_up</b>)</span>
-         {<em>alert</em>(<i>"We're really sorry about that."</i>);
-  <span>window</span>.<em>location</em> = home;}
-</code>
-<br><div style="text-align: center;"><%= link_to "HOME", root_path %></div>
-
-<%= javascript_pack_tag 'errors' %>
-<%= stylesheet_link_tag 'errors' %>
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+</head>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="error-template">
+        <h1>
+          Oops!</h1>
+        <h2>
+          404 Not Found</h2>
+        <div class="error-details">
+          Sorry, an error has occurred, Requested page not found!
+        </div>
+        <div class="error-actions">
+          <%= link_to "Take me home", root_path, class: 'btn btn-primary btn-lg' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

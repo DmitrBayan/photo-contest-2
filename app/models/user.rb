@@ -18,11 +18,15 @@
 #  name         :string
 #
 class User < ApplicationRecord
-  has_many :posts, dependent: :destroy, inverse_of: :users
-  has_many :comments, dependent: :destroy, inverse_of: :users
-  has_many :likes, dependent: :destroy, inverse_of: :users
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :access_token, :uid, :provider, presence: true
+
+  scope :by_first_name, ->(search) { where("first_name ILIKE ?","%#{search}%") }
+  scope :by_last_name, ->(search) { where("last_name ILIKE ?","%#{search}%") }
+  scope :by_full_name, ->(search) { by_first_name(search).or(by_last_name(search)) }
 
   def full_name
     "#{first_name} #{last_name}"
