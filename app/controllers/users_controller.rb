@@ -11,8 +11,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.where(["lower(first_name) || ' ' || lower(last_name) LIKE ?",
-                         "%#{params[:search].downcase if params[:search].present?}%"])
+    @users = User.by_full_name(params[:search])
                  .paginate(page: params[:page])
   end
 
