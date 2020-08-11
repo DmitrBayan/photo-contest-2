@@ -24,6 +24,8 @@ class User < ApplicationRecord
 
   validates :access_token, :uid, :provider, presence: true
 
+  mount_uploader :image_url, PhotoUploader
+
   scope :by_first_name, ->(search) { where("first_name ILIKE ?","%#{search}%") }
   scope :by_last_name, ->(search) { where("last_name ILIKE ?","%#{search}%") }
   scope :by_full_name, ->(search) { by_first_name(search).or(by_last_name(search)) }

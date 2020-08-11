@@ -2,7 +2,7 @@
 
 <section class="jumbotron text-center">
   <div class="container" style="padding-bottom: 17px">
-    <img src=<%= @user.image_url %> alt='User' style = 'border-radius: 50%'/>
+    <img src=<%= @user.image_url %> alt='User' style = 'border-radius: 50%' width="200" height="200"/>
     <h1 class="jumbotron-heading"><%= @user.full_name %></h1>
     <% if current_user?(@user) %>
       <p class="lead text-muted">Would you like to post a photo?</p>

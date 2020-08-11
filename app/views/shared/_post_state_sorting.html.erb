@@ -3,7 +3,6 @@
     Sort
   </button>
   <div class="dropdown-menu">
-    <%= link_to 'All posts', user_path, class: "dropdown-item" %>
     <%= link_to 'Approved posts', user_path(filter: 'approved'), class: "dropdown-item" %>
     <%= link_to 'Posts on moderation', user_path(filter: 'moderated'), class: "dropdown-item" %>
   </div>

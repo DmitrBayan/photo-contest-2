@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = if @user.eql?(current_user)
-               @user.posts.reorder(params[:sorting])
+               params[:filter].present? ? @user.posts.by_state(params[:filter]) : @user.posts
              else
                @user.posts.approved
              end
@@ -30,6 +30,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name)
+    params.require(:user).permit(:first_name, :last_name, :image_url)
   end
 end

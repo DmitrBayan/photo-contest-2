@@ -22,10 +22,15 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Upload a photo here</label>
+          <%= f.file_field :image_url, accept: 'image/jpg,image/gif,image/png,image/jpeg' %>
+        </div>
+
         <div class="col-md-8">
           <%= f.submit "Save", class: "btn btn-secondary" %>
           <span></span>
-          <input type="reset" class="btn btn-secondary" value="Cancel">
+          <input type="reset" class="btn btn-secondary" value="Restore">
         </div>
       </form>
     </form>

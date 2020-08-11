@@ -19,6 +19,7 @@ class Post < ApplicationRecord
   include AASM
 
   belongs_to :user
+
   mount_uploader :photo, PhotoUploader
 
   has_many :comments, dependent: :destroy
@@ -31,6 +32,7 @@ class Post < ApplicationRecord
   scope :by_description, ->(search) { approved.where("description ILIKE ?","%#{search}%") }
   scope :by_title_or_description, ->(search) { by_title(search).or(by_description(search)) }
   scope :by_user_full_name, ->(search) { approved.where(user_id: User.by_full_name(search).pluck(:id)) }
+  scope :by_state, ->(filter) { where("aasm_state = ?", "#{filter}") }
 
   aasm do
     state :moderated, initial: true
