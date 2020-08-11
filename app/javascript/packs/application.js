@@ -4,7 +4,7 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-require("jquery3")
+require("jquery")
 require("turbolinks").start()
 require("bootstrap")
 require("channels")
