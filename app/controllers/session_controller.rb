@@ -8,7 +8,7 @@ class SessionController < ApplicationController
       session[:user_id] = @user.id
       flash[:success] = 'Welcome!'
     else
-      flash[:warning] = outcome.errors.full_messages
+      @user = outcome
     end
     redirect_to root_path
   end
@@ -16,6 +16,7 @@ class SessionController < ApplicationController
   def destroy
     session.delete(:user_id)
     @current_user = nil
+    flash[:success] = 'Bye!'
     redirect_to root_path
   end
 end

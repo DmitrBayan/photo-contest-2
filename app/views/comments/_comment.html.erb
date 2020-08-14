@@ -17,7 +17,7 @@
           </div>
         </div>
         <% if current_user?(comment.user) %>
-          <%= link_to "Delete comment", post_comment_path(@post), class: "btn btn-sm btn-outline-danger", method: :delete, data: {confirm: "You sure?"} %>
+          <%= link_to "Delete comment", post_comment_path(@post, comment.id), class: "btn btn-sm btn-outline-danger", method: :delete, data: {confirm: "You sure?"} %>
         <% end %>
         <div class="reply">
           <%= render 'shared/reply_form', info: {parent_comment_id: comment.id, post_id: comment.post.id} if comment.present? %>

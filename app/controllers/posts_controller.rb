@@ -3,7 +3,9 @@
 class PostsController < ApplicationController
   before_action :must_logged, only: %i[create destroy new]
 
-  def new; end
+  def new
+    @post = ::Posts::Create.new
+  end
 
   def index
     @posts = Post.by_title_or_description(params[:search])
@@ -27,7 +29,7 @@ class PostsController < ApplicationController
       flash[:success] = 'Post submitted for moderation!'
       redirect_to current_user
     else
-      flash[:warning] = outcome.errors.full_messages
+      @post = outcome
       render 'new'
     end
   end

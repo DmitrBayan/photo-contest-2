@@ -1,11 +1,12 @@
-<script src="new.js"></script>
-
 <% provide(:title, "New post") %>
+
+<% render 'shared/form_errors', object: @post %>
+
 <%= form_for :post, url: posts_path, html: { multipart: true } do |f| %>
 	<div class="form-group">
     	<label for="inputTitle">Title</label>
     	<div class="field">
-    		<%= f.text_field :title, placeholder: "...photo title..." %>
+    		<%= f.text_field :title, placeholder: "...photo title...", required: true %>
     	</div>
   	</div>
 
@@ -18,7 +19,7 @@
 
   	<div class="form-group">
     	<label for="exampleFormControlFile1">Upload a photo here</label>
-    	<%= f.file_field :photo, accept: 'image/jpg,image/gif,image/png,image/jpeg' %>
+    	<%= f.file_field :photo, accept: 'image/jpg,image/gif,image/png,image/jpeg', required: true %>
   	</div>
 
   	<button type="submit" class="btn btn-primary">Submit</button>

@@ -17,8 +17,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Post.find(params[:post_id]).comments.find_by(user_id: current_user.id)
-    if @comment.present?
+    @comment = Comment.find(params[:id])
+    if @comment.present? && @comment.user_id.eql?(current_user.id)
       @comment.destroy
       flash[:success] = 'Comment deleted.'
     else

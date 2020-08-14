@@ -7,6 +7,12 @@ module Posts
     string :description
     file :photo, class: ::PhotoUploader
 
+    validates :title, presence: true
+
+    def to_model
+      Post.new
+    end
+
     def execute
       post = user.posts.build(title: title, description: description, photo: photo)
       post.save ? post : post.errors
