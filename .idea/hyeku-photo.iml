@@ -292,9 +292,13 @@
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v3.0.0, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.1.6, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.4.4, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.9.0, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="excon (v0.75.0, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.7.0, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_bot (v6.1.0, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_bot_rails (v6.1.0, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faker (v2.13.0@35ec5e, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday (v1.0.1, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.13.1, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fog-aws (v3.6.5, RVM: ruby-2.5.8) [gem]" level="application" />
@@ -363,6 +367,11 @@
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v1.7.1, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="responders (v3.0.1, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.2.4, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.9.2, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.9.2, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.9.1, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v4.0.1, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.9.3, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop (v0.88.0, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v0.1.0, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rails (v2.6.0, RVM: ruby-2.5.8) [gem]" level="application" />
