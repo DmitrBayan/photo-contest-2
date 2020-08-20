@@ -32,6 +32,12 @@ def user_comment_comments(comments_count)
     FactoryBot.create_list(:comment, comments_count,
                            user: user,
                            post: post,
-                           parent_comment: post.comments.first)
+                           parent_comment: post.comments.order(Arel.sql('RANDOM()')).first)
+  end
+end
+
+def user_like_posts(likes_count)
+  FactoryBot.create(:user) do |user|
+    FactoryBot.create_list(:like, likes_count, user: user)
   end
 end
