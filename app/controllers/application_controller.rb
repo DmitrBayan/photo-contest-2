@@ -27,4 +27,5 @@ class ApplicationController < ActionController::Base
       format.all { render nothing: true, status: :not_found }
     end
   end
+
 end

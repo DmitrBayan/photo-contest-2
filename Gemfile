@@ -30,6 +30,7 @@ gem 'carrierwave', '~> 2.0'
 
 # active interaction
 gem 'active_interaction', '~> 3.7'
+gem 'active_model_serializers'
 
 # storage
 gem 'aws-sdk', '~> 3'
