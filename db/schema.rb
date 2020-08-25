@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 2020_08_24_184550) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
     t.string "name"
-    t.string "authenticate_token"
-    t.index ["authenticate_token"], name: "index_users_on_authenticate_token", unique: true
+    t.string "authenticity_token"
+    t.index ["authenticity_token"], name: "index_users_on_authenticity_token", unique: true
   end
 
   add_foreign_key "comments", "users"

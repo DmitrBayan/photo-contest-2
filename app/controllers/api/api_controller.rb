@@ -10,9 +10,9 @@ module Api
       end
     end
 
-    def verify_authenticate_token
+    def verify_authenticity_token
       token = request.headers['token']
-      @api_user = User.find_by(authenticate_token: token)
+      @api_user = User.find_by(authenticity_token: token)
       raise ::Errors::InvalidCredentials unless @api_user
     end
 

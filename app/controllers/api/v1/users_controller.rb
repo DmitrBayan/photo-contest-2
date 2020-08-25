@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ::Api::ApiController
       layout false
-      before_action :verify_authenticate_token
+      before_action :verify_authenticity_token
 
       def index
         @users = User.by_full_name(params[:search])
@@ -12,11 +12,7 @@ module Api
 
       def show
         @user = User.find(params[:id])
-        @posts = if @user.eql?(current_user)
-                   params[:filter].present? ? @user.posts.by_state(params[:filter]) : @user.posts
-                 else
-                   @user.posts.approved
-                 end
+        @posts = @user.posts
         render json: @user, status: :ok
       end
 
@@ -28,20 +24,21 @@ module Api
         render json: { message: 'removed' }, status: :ok
       end
 
-      def current
-        raise ::Errors::InvalidRequestData unless @api_user
-
-        render json: @api_user, user_id: @api_user.id, status: :ok
+      def update
+        @user = @api_user
+        @user.update(user_params)
+        validate @user
       end
 
-      def posts
-        user = User.find(params[:id])
-        raise ::Errors::InvalidRequestData unless user
-
-        posts = Post.where(user_id: user.id).page(params[:page]).per(params[:per_page])
-        render json: posts, status: :ok
+      def edit
+        @user = @api_user
       end
+      
+      private
 
+      def user_params
+        params.require(:user).permit(:first_name, :last_name, :image_url)
+      end
     end
   end
 end

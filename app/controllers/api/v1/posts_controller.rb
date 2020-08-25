@@ -2,7 +2,7 @@ module Api
   module V1
     class PostsController < ::ApiController
       layout false
-      before_action :verify_authenticate_token
+      before_action :verify_authenticity_token
 
       def index
         @posts = Post.by_title_or_description(params[:search])
