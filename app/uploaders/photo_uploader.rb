@@ -15,18 +15,22 @@ class PhotoUploader < CarrierWave::Uploader::Base
   storage :fog
 
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    if Rails.env.development?
+      "uploads/development/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    else
+      "uploads/production/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
   end
 
-  def extension_whitelist
-    %w[jpg jpeg gif png]
-  end
+    def extension_whitelist
+      %w[jpg jpeg gif png]
+    end
 
-  version :admin do
-    process resize_to_limit: [100, 100]
-  end
+    version :admin do
+      process resize_to_limit: [100, 100]
+    end
 
-  version :show do
-    process resize_to_limit: [400, 400]
+    version :show do
+      process resize_to_limit: [400, 400]
+    end
   end
-end

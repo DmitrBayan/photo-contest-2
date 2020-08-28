@@ -39,6 +39,7 @@ class Post < ApplicationRecord
     state :approved
     state :banned
     state :deleted
+
     event :approve do
       transitions to: :approved, from: %i[moderated banned]
     end
@@ -47,16 +48,15 @@ class Post < ApplicationRecord
       transitions to: :banned, from: %i[moderated approved]
     end
 
-    event :delete do
-      transitions to: :deleted, from: %i[moderated approved banned]
-    end
-
     event :restore do
-      transitions from: :deleted, to: :moderated
+      transitions to: :moderated, from: :banned
     end
   end
 
   def photo_size
-    errors.add(:photo, 'should be less than 5MB') if photo.size >= 5.megabytes
+    return if photo.blank?
+    if photo.file.size.to_f/(1000*1000) > 5.0
+      errors.add(:file, "You cannot upload a file greater than #{5.0}MB")
+    end
   end
 end
