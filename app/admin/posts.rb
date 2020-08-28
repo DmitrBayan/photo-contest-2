@@ -5,6 +5,12 @@ ActiveAdmin.register Post do
   config.per_page = [5, 10, 50, 100]
   permit_params :name, :description
 
+  controller do
+    def ban
+      BanPostWorker.perform_async( params[:id])
+    end
+  end
+
   batch_action I18n.t(:ban) do |ids|
     batch_action_collection.find(ids).each do |post|
       post.ban! :ban unless post.banned?
@@ -34,6 +40,14 @@ ActiveAdmin.register Post do
           column do
             link_to :approve, approve_admin_post_path(post), class: 'button2'
           end
+          column do
+            link_to :ban, ban_admin_post_path(post), class: 'button1'
+          end
+        elsif post.banned?
+          column do
+            link_to :restore, restore_admin_post_path(post), class: 'button1'
+          end
+        else
           column do
             link_to :ban, ban_admin_post_path(post), class: 'button1'
           end
@@ -69,17 +83,20 @@ ActiveAdmin.register Post do
   end
 
   member_action :approve do
+    post = Post.find(params[:id])
     post.approve!
     redirect_to admin_posts_path
   end
 
   member_action :ban do
+    post = Post.find(params[:id])
     post.ban!
-    redirect_to admin_posts_path
+    redirect_to admin_posts_path, notice: 'You have 5 minutes to restore this if you want.'
   end
 
   member_action :restore do
-    resource.restore!
+    post = Post.find(params[:id])
+    post.restore!
     redirect_to admin_posts_path
   end
 end
