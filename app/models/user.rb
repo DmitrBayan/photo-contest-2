@@ -22,6 +22,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  has_secure_token :authenticity_token
+
   validates :access_token, :uid, :provider, presence: true
 
   mount_uploader :image_url, PhotoUploader
@@ -32,5 +34,14 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def set_authenticity_token
+    self.authenticity_token = generate_token
+  end
+
+  private
+  def generate_token
+      SecureRandom.hex(10)
   end
 end
