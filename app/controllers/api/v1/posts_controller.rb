@@ -13,9 +13,7 @@ module Api
 
       def show
         post = Post.find(params[:id])
-        comments = post.comments
-        user = User.find(post.user_id)
-        render json: [user, post, comments], status: :ok
+        render json: post, status: :ok
       end
 
       def create
@@ -47,9 +45,9 @@ module Api
       def post_params
         {
             user: @api_user,
-            title: params[:post]['title'],
-            description: params[:post]['description'],
-            photo: params[:post]['photo']
+            title: params['title'],
+            description: params['description'],
+            photo: params['photo']
         }
       end
     end
