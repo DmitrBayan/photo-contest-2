@@ -5,12 +5,6 @@ ActiveAdmin.register Post do
   config.per_page = [5, 10, 50, 100]
   permit_params :name, :description
 
-  controller do
-    def ban
-      BanPostWorker.perform_async( params[:id])
-    end
-  end
-
   batch_action I18n.t(:ban) do |ids|
     batch_action_collection.find(ids).each do |post|
       post.ban! :ban unless post.banned?
@@ -85,12 +79,15 @@ ActiveAdmin.register Post do
   member_action :approve do
     post = Post.find(params[:id])
     post.approve!
+    PostMailer.state_change_email(post, 'approve').deliver_now
     redirect_to admin_posts_path
   end
 
   member_action :ban do
     post = Post.find(params[:id])
     post.ban!
+    BanPostWorker.perform_async( params[:id])
+    PostMailer.state_change_email(post, 'ban').deliver_now
     redirect_to admin_posts_path, notice: 'You have 5 minutes to restore this if you want.'
   end
 
