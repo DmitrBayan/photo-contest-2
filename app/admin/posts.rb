@@ -86,7 +86,7 @@ ActiveAdmin.register Post do
   member_action :ban do
     post = Post.find(params[:id])
     post.ban!
-    BanPostWorker.perform_async( params[:id])
+    BanPostWorker.perform_in(5.minutes, params[:id])
     PostMailer.state_change_email(post, 'ban').deliver_now
     redirect_to admin_posts_path, notice: 'You have 5 minutes to restore this if you want.'
   end
