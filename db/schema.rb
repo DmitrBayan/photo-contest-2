@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_184550) do
+ActiveRecord::Schema.define(version: 2020_08_28_161546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 2020_08_24_184550) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "ticker"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "likes", force: :cascade do |t|
     t.bigint "post_id", null: false
     t.bigint "user_id", null: false
@@ -62,6 +69,16 @@ ActiveRecord::Schema.define(version: 2020_08_24_184550) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "price_data", force: :cascade do |t|
+    t.date "price_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "open_price"
+    t.float "close_price"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_price_data_on_company_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "access_token", null: false
     t.string "uid", null: false
@@ -75,6 +92,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_184550) do
     t.boolean "admin", default: false
     t.string "name"
     t.string "authenticity_token"
+    t.string "email"
     t.index ["authenticity_token"], name: "index_users_on_authenticity_token", unique: true
   end
 
