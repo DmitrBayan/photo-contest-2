@@ -38,3 +38,11 @@
   </form>
   <hr>
 <% end %>
+
+<p>Your authenticity token is: <%= current_user.authenticity_token %></p>
+<%= link_to edit_user_path(current_user),
+            data: {confirm: 'Are you sure?'},
+            class: 'btn btn-sm btn-info' do %>
+  Get new auth token
+  <% current_user.set_authenticity_token %>
+<% end %>
