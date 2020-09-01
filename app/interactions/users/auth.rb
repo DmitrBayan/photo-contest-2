@@ -12,7 +12,7 @@ module Users
       else
         user.errors.add(:base, 'Unknown provider')
       end
-      user.set_authenticity_token if user.authenticity_token.blank?
+      user.set_authenticity_token
       user.save ? user : user.errors
     end
 
