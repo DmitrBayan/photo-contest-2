@@ -7,6 +7,7 @@ class SessionController < ApplicationController
       @user = outcome.result
       session[:user_id] = @user.id
       flash[:success] = 'Welcome!'
+      flash[:warning] = 'We recommend u to set email via "Profile update"' unless @user.email
     else
       @user = outcome
     end

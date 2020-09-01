@@ -32,4 +32,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :image_url)
   end
+
+  def set_auth_token
+    current_user.set_authenticity_token
+    redirect_to edit_user_path(current_user)
+  end
 end

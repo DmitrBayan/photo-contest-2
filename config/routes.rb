@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   delete 'logout' => 'session#destroy'
   get '/auth/:provider/callback' => 'session#create'
-  resources :users
+  resources :users do
+    post '/set_auth_token' => 'users#set_auth_token', on: :member
+  end
   resources :posts do
     resources :comments
     resource :likes

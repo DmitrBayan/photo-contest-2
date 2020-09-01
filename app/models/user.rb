@@ -37,7 +37,7 @@ class User < ApplicationRecord
   end
 
   def set_authenticity_token
-    self.authenticity_token = generate_token
+    self.update(authenticity_token: generate_token)
   end
 
   private
