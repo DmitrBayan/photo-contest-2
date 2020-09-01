@@ -2,8 +2,8 @@
 class PostMailerPreview < ActionMailer::Preview
 
   def state_change_email
-    post = Post.first
-    PostMailer.state_change_email(post, post.state)
+    @post = Post.first
+    PostMailer.state_change_email(@post, @post.aasm_state)
   end
 
 end

@@ -5,7 +5,7 @@ class PostMailer < ApplicationMailer
 
   def state_change_email(post, state)
     @user = User.find_by(id: post.user_id)
-    return unless @user.email
+    return if @user.email.blank?
 
     @post = post
     @state = state
