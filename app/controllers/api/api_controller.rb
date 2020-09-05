@@ -20,6 +20,8 @@ module Api
 
     def verify_authenticity_token
       token = request.headers['token']
+      raise ::Errors::Unauthenticated unless token
+
       @api_user = User.find_by(authenticity_token: token)
       raise ::Errors::InvalidCredentials unless @api_user
     end
