@@ -3,11 +3,9 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
 
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from ActionController::RoutingError, with: :render_404
-    rescue_from AbstractController::ActionNotFound, with: :render_404
-    rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  end
+  rescue_from ActionController::RoutingError, with: :render_404
+  rescue_from AbstractController::ActionNotFound, with: :render_404
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   protect_from_forgery with: :exception
 
@@ -24,7 +22,7 @@ class ApplicationController < ActionController::Base
   def render_404
     respond_to do |format|
       format.html { render 'errors/error_404', status: :not_found }
-      format.all { render nothing: true, status: :not_found }
+      format.json { render json: { message: 'not found' }, status: :not_found }
     end
   end
 

@@ -7,4 +7,8 @@ class PostSerializer < ActiveModel::Serializer
 
   has_many :likes
   has_many :comments
+
+  def photo
+    object.photo.show
+  end
 end

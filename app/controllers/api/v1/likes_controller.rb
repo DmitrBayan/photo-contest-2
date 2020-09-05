@@ -1,9 +1,8 @@
 module Api
   module V1
     class LikesController < ::Api::ApiController
-      layout false
-      before_action :verify_authenticity_token, :find_post
-
+      before_action :find_post
+      # TODO def destroy
       def create
         if @post.likes.find_by(user_id: @api_user).present?
           ::Likes::Destroy.run(post: @post, user: @api_user)

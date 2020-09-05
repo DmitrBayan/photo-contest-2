@@ -53,13 +53,13 @@ module Errors
     end
   end
 
-  class Unright < Base
+  class NotAllowed < Base
     def default_message
       'You are not allowed to do this.'
     end
 
     def default_status
-      :unright
+      :method_not_allowed
     end
   end
 end

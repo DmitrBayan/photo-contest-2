@@ -2,12 +2,20 @@
 
 module Api
   class ApiController < ApplicationController
-    def validate(outcome)
+    before_action :verify_authenticity_token, only: [:create, :destroy, :update]
+
+    rescue_from ::Errors::Base, with: :render_error
+
+    def validate_result outcome
       if outcome.valid?
-        render json: { message: 'Created' }, status: :ok
+        render json: outcome.result, status: :ok
       else
         render json: outcome.errors, status: :unprocessable_entity
       end
+    end
+
+    def validate_user user
+      raise ::Errors::NotAllowed unless @api_user.id == user.id
     end
 
     def verify_authenticity_token
@@ -16,5 +24,10 @@ module Api
       raise ::Errors::InvalidCredentials unless @api_user
     end
 
+    private
+
+    def render_error(exception)
+      render json: {message: exception.default_message}, status: exception.default_status
+    end
   end
 end

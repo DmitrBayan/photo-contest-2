@@ -1,18 +1,16 @@
 module Api
   module V1
     class CommentsController < ::Api::ApiController
-      layout false
-      before_action :verify_authenticity_token
 
       def create
         @post = Post.find(params[:post_id])
         outcome = Comments::Create.run(comment_params)
-        validate outcome
+        validate_result outcome
       end
 
       def destroy
         comment = Comment.find(params[:id])
-        raise ::Errors::Unright unless @api_user.id == comment.user_id
+        validate_user User.find(comment.user_id)
 
         comment.destroy
         render json: {message: 'destroyed'}, status: :ok

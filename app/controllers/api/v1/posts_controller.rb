@@ -1,13 +1,10 @@
 module Api
   module V1
     class PostsController < ::Api::ApiController
-      layout false
-      before_action :verify_authenticity_token
-
       def index
         posts = Post.by_title_or_description(params[:search])
-                     .or(Post.by_user_full_name(params[:search]))
-                     .reorder(params[:sorting])
+                    .or(Post.by_user_full_name(params[:search]))
+                    .reorder(params[:sorting])
         render json: posts, status: :ok
       end
 
@@ -18,12 +15,12 @@ module Api
 
       def create
         outcome = ::Posts::Create.run(post_params)
-        validate outcome
+        validate_result outcome
       end
 
       def destroy
         post = Post.find(params[:id])
-        raise ::Errors::Unright unless @api_user.id == post.user_id
+        validate_user User.find(post.user_id)
 
         post.destroy
         render json: { message: 'destroyed' }, status: :ok
@@ -31,7 +28,7 @@ module Api
 
       def update
         post = Post.find(params[:id])
-        raise ::Errors::Unright unless @api_user.id == post.user_id
+        validate_user User.find(post.user_id)
 
         if post.update(post_params)
           render json: post, status: :ok
