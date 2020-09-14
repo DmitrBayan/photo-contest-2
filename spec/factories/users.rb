@@ -30,7 +30,7 @@ FactoryBot.define do
 
     trait(:comment_posts) do
       after(:create) do |user|
-        create_list(:comment, comments_count,
+        create_list(:comment, 2,
                     user: user,
                     post: Post.order(Arel.sql('RANDOM()')).first)
       end
@@ -39,7 +39,7 @@ FactoryBot.define do
     trait(:comment_comment) do
       after(:create) do |user|
         post = Post.where('comments_count > 0').order(Arel.sql('RANDOM()')).first
-        create_list(:comment, comments_count,
+        create_list(:comment, 2,
                     user: user,
                     post: post,
                     parent_comment: post.comments.first)
