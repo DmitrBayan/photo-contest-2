@@ -18,6 +18,8 @@
 #  name         :string
 #
 class User < ApplicationRecord
+  include AASM
+
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -37,11 +39,24 @@ class User < ApplicationRecord
   end
 
   def set_authenticity_token
-    self.update(authenticity_token: generate_token)
+    token = SecureRandom.hex(10)
+    if User.find_by(authenticity_token: token)
+      set_authenticity_token
+    else
+      self.update(authenticity_token: token)
+    end
   end
 
-  private
-  def generate_token
-      SecureRandom.hex(10)
+  aasm do
+    state :common, initial: true
+    state :banned
+
+    event :ban do
+      transitions to: :banned, from: :common
+    end
+
+    event :unban do
+      transitions to: :common, from: :banned
+    end
   end
 end

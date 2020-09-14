@@ -2,6 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :must_logged, only: %i[create destroy new]
+  before_action :check_user_ban, only: %i[create new]
 
   def new
     @post = ::Posts::Create.new

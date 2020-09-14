@@ -20,4 +20,11 @@ module ApplicationHelper
     flash[:warning] = 'You must be logged in!'
     redirect_to root_path
   end
+
+  def check_user_ban
+    return if @current_user.common?
+
+    flash[:warning] = 'You cannot do it, because you are banned!'
+    redirect_to request.referrer
+  end
 end

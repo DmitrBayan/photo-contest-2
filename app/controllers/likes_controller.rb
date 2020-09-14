@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  before_action :find_post, :must_logged
+  before_action :find_post, :must_logged, :check_user_ban
 
   def create
     if @post.likes.find_by(user_id: current_user).present?

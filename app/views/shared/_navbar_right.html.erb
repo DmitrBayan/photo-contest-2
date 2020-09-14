@@ -2,8 +2,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <div class="nav-item nav-link dropdown-toggle mr-md-2" data-toggle="dropdown">
-        <a><%= current_user.first_name %> </a>
-        <img src=<%= current_user.image_url %> width="40" height="40" alt='User' style = 'border-radius: 50%'/>
+        <a><%= current_user.first_name %>
+          <% if current_user.banned? %>
+            (BANNED)
+          <% end %></a>
+        <img src=<%= current_user.image_url %> width="40" height="40" alt='User' style='border-radius: 50%'/>
       </div>
       <div class="dropdown-menu dropdown-menu-right">
         <%= link_to "My profile", current_user, class: "dropdown-item" %>
