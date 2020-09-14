@@ -5,13 +5,14 @@ ActiveAdmin.register User do
 
   index do
     selectable_column
+    column :id
     column :name do |user|
       user.full_name
     end
     column :avatar do |user|
       image_tag user.image_url.admin.url if user.image_url.present?
     end
-    column :aasm_state
+    tag_column :aasm_state
     column :moderation do |user|
       columns do
         if user.common?
@@ -46,7 +47,7 @@ ActiveAdmin.register User do
       row :created_at
       row :updated_at
       row :id
-      row :aasm_state
+      tag_row :aasm_state
     end
   end
 

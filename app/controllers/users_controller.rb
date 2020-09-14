@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = if @user.eql?(current_user)
-               params[:filter].present? ? @user.posts.by_state(params[:filter]) : @user.posts
+               params[:filter].present? ? @user.posts.public_send(params[:filter]) : @user.posts
              else
                @user.posts.approved
              end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :image_url)
+    params.require(:user).permit(:first_name, :last_name, :image_url, :email)
   end
 
   def set_auth_token

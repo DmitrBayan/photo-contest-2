@@ -45,6 +45,7 @@ gem 'pg'
 # state machine + admin panel
 gem 'aasm'
 gem 'activeadmin'
+gem 'activeadmin_addons'
 
 # localization
 gem 'i18n'

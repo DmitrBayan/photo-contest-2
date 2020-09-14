@@ -32,20 +32,18 @@ class Post < ApplicationRecord
   scope :by_description, ->(search) { approved.where('description ILIKE ?', "%#{search}%") }
   scope :by_title_or_description, ->(search) { by_title(search).or(by_description(search)) }
   scope :by_user_full_name, ->(search) { approved.where(user_id: User.by_full_name(search).pluck(:id)) }
-  scope :by_state, ->(filter) { where('aasm_state = ?', "#{filter}") }
 
   aasm do
     state :moderated, initial: true
     state :approved
     state :banned
-    state :deleted
 
     event :approve do
-      transitions to: :approved, from: %i[moderated banned]
+      transitions to: :approved, from: :moderated
     end
 
     event :ban do
-      transitions to: :banned, from: %i[moderated approved]
+      transitions to: :banned, from: :moderated
     end
 
     event :restore do
@@ -55,7 +53,7 @@ class Post < ApplicationRecord
 
   def photo_size
     return if photo.blank?
-    if photo.file.size.to_f/(1000*1000) > 5.0
+    if photo.file.size.to_f / (1024 * 1024) > 5.0
       errors.add(:file, "You cannot upload a file greater than #{5.0}MB")
     end
   end
