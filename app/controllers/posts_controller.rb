@@ -12,6 +12,7 @@ class PostsController < ApplicationController
     @posts = Post.by_title_or_description(params[:search])
                  .or(Post.by_user_full_name(params[:search]))
                  .reorder(params[:sorting])
+                 .paginate(page: params[:page], per_page: 9)
     respond_to do |format|
       format.html
       format.js

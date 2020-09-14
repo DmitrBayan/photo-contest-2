@@ -56,7 +56,7 @@ gem 'rubocop-rails', require: false
 
 # bootstrap-sprockets
 gem 'bootstrap-sass'
-gem 'bootstrap-will_paginate'
+gem 'will_paginate-bootstrap'
 
 gem 'will_paginate'
 

@@ -16,4 +16,5 @@
     <% end %>
   </div>
   <%= render 'shared/posts_index' %>
+  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
 </section>

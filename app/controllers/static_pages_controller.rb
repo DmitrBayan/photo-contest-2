@@ -2,6 +2,6 @@
 
 class StaticPagesController < ApplicationController
   def home
-    @posts = Post.paginate(page: params[:page]).approved
+    @posts = Post.paginate(page: params[:page], per_page: 9).approved
   end
 end

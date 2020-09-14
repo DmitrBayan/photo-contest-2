@@ -3,3 +3,6 @@
 <%= render "shared/filterable" %>
 <%= render "shared/post_sort" %>
 <%= render "shared/posts_index" %>
+<div id="will_paginate_id">
+  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+</div>

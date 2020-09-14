@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.by_full_name(params[:search])
-                 .paginate(page: params[:page])
+                 .paginate(page: params[:page], per_page: 12)
   end
 
   def edit
