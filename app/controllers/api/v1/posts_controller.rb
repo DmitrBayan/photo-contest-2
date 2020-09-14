@@ -46,7 +46,7 @@ module Api
 
       def post_params
         {
-            user: @api_user,
+            user: current_user,
             title: params['title'],
             description: params['description'],
             photo: params['photo']

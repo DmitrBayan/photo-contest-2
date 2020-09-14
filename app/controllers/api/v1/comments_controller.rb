@@ -1,31 +1,33 @@
 module Api
   module V1
     class CommentsController < ::Api::ApiController
+      before_action :find_comment, except: :create
 
       def create
-        @post = Post.find(params[:post_id])
         outcome = Comments::Create.run(comment_params)
         validate_result outcome
       end
 
       def destroy
-        comment = Comment.find(params[:id])
-        validate_user User.find(comment.user_id)
+        validate_user User.find(@comment.user_id)
 
-        comment.destroy
+        @comment.destroy
         render json: {message: 'destroyed'}, status: :ok
       end
 
       def show
-        comment = Comment.find(params[:id])
-        render json: comment, status: :ok
+        render json: @comment, status: :ok
       end
 
       private
 
+      def find_comment
+        @comment = Comment.find(params[:id])
+      end
+
       def comment_params
         {
-            post: @post, user: @api_user,
+            post_id: params[:post_id], user: current_user,
             body: params['body'],
             parent_comment_id: params[:parent_comment_id]
         }

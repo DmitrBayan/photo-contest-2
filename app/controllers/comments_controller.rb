@@ -6,7 +6,6 @@ class CommentsController < ApplicationController
   def new; end
 
   def create
-    @post = Post.find(params[:post_id])
     outcome = Comments::Create.run(comment_params)
     if outcome.valid?
       flash[:success] = 'Commented.'
@@ -31,7 +30,7 @@ class CommentsController < ApplicationController
 
   def comment_params
     {
-      post: @post, user: current_user,
+      post_id: params[:post_id], user: current_user,
       body: params[:comment]['body'],
       parent_comment_id: params[:parent_comment_id]
     }
