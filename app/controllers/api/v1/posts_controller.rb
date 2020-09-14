@@ -1,6 +1,7 @@
 module Api
   module V1
     class PostsController < ::Api::ApiController
+      before_action :find_post, except: :index
       def index
         posts = Post.by_title_or_description(params[:search])
                     .or(Post.by_user_full_name(params[:search]))
@@ -9,8 +10,10 @@ module Api
       end
 
       def show
-        post = Post.find(params[:id])
-        render json: post, status: :ok
+        if @post.banned? && current_user.id != @post.user.id
+          raise ::Errors::NotFound
+        end
+        render json: @post, status: :ok
       end
 
       def create
@@ -19,25 +22,27 @@ module Api
       end
 
       def destroy
-        post = Post.find(params[:id])
-        validate_user User.find(post.user_id)
+        validate_user User.find(@post.user_id)
 
-        post.destroy
+        @post.destroy
         render json: { message: 'destroyed' }, status: :ok
       end
 
       def update
-        post = Post.find(params[:id])
-        validate_user User.find(post.user_id)
+        validate_user User.find(@post.user_id)
 
-        if post.update(post_params)
-          render json: post, status: :ok
+        if @post.update(post_params)
+          render json: @post, status: :ok
         else
-          render json: {errors: post.errors}, status: :unprocessable_entity
+          render json: {errors: @post.errors}, status: :unprocessable_entity
         end
       end
 
       private
+
+      def find_post
+        @post = Post.find(params[:id])
+      end
 
       def post_params
         {

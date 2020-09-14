@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ::Api::ApiController
+      before_action :find_user, except: :index
       def index
         users = User.by_full_name(params[:search])
                      .paginate(page: params[:page])
@@ -8,30 +9,31 @@ module Api
       end
 
       def show
-        user = User.find(params[:id])
-        render json: user, status: :ok
+        render json: @user, status: :ok
       end
 
       def destroy
-        user = User.find(params[:id])
-        validate_user user
+        validate_user @user
 
-        user.destroy
+        @user.destroy
         render json: { message: 'removed' }, status: :ok
       end
 
       def update
-        user = User.find(params[:id])
-        validate_user user
+        validate_user @user
 
-        if user.update(user_params)
-          render json: user, status: :ok
+        if @user.update(user_params)
+          render json: @user, status: :ok
         else
-          render json: {errors: user.errors}, status: :unprocessable_entity
+          render json: {errors: @user.errors}, status: :unprocessable_entity
         end
       end
       
       private
+
+      def find_user
+        @user = User.find(params[:id])
+      end
 
       def user_params
         params.permit(:first_name, :last_name, :image_url, :email)
