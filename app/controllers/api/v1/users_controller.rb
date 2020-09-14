@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class UsersController < ::Api::ApiController
       before_action :find_user, except: :index
       def index
         users = User.by_full_name(params[:search])
-                     .paginate(page: params[:page])
+                    .paginate(page: params[:page])
         render json: users, status: :ok
       end
 
@@ -25,10 +27,10 @@ module Api
         if @user.update(user_params)
           render json: @user, status: :ok
         else
-          render json: {errors: @user.errors}, status: :unprocessable_entity
+          render json: { errors: @user.errors }, status: :unprocessable_entity
         end
       end
-      
+
       private
 
       def find_user

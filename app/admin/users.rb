@@ -6,9 +6,7 @@ ActiveAdmin.register User do
   index do
     selectable_column
     column :id
-    column :name do |user|
-      user.full_name
-    end
+    column :full_name
     column :avatar do |user|
       image_tag user.image_url.admin.url if user.image_url.present?
     end
@@ -62,5 +60,4 @@ ActiveAdmin.register User do
     UserMailer.state_change_email(resource).deliver_now
     redirect_to admin_users_path
   end
-
 end

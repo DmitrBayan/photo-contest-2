@@ -25,5 +25,4 @@ class ApplicationController < ActionController::Base
       format.json { render json: { message: 'not found' }, status: :not_found }
     end
   end
-
 end

@@ -4,7 +4,6 @@ ActiveAdmin.register Post do
   config.per_page = [5, 10, 50, 100]
   permit_params :title, :description
 
-
   batch_action I18n.t(:ban) do |ids|
     batch_action_collection.find(ids).each do |post|
       post.ban! :ban if post.may_banned?

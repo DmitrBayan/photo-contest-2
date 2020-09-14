@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class CommentsController < ::Api::ApiController
@@ -12,7 +14,7 @@ module Api
         validate_user User.find(@comment.user_id)
 
         @comment.destroy
-        render json: {message: 'destroyed'}, status: :ok
+        render json: { message: 'destroyed' }, status: :ok
       end
 
       def show
@@ -27,9 +29,9 @@ module Api
 
       def comment_params
         {
-            post_id: params[:post_id], user: current_user,
-            body: params['body'],
-            parent_comment_id: params[:parent_comment_id]
+          post_id: params[:post_id], user: current_user,
+          body: params['body'],
+          parent_comment_id: params[:parent_comment_id]
         }
       end
     end

@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 module Api
   class ApiController < ActionController::API
-    before_action :verify_authenticity_token, only: [:create, :destroy, :update]
+    before_action :verify_authenticity_token, only: %i[create destroy update]
 
     rescue_from ::Errors::Base, with: :render_error
 
-    def validate_result outcome
+    def validate_result(outcome)
       if outcome.valid?
         render json: outcome.result, status: :created
       else
@@ -17,7 +18,7 @@ module Api
       User.find_by(authenticity_token: token)
     end
 
-    def validate_user user
+    def validate_user(user)
       raise ::Errors::NotAllowed unless current_user.id == user.id
     end
 
@@ -31,7 +32,7 @@ module Api
     private
 
     def render_error(exception)
-      render json: {message: exception.message}, status: exception.status
+      render json: { message: exception.message }, status: exception.status
     end
   end
 end

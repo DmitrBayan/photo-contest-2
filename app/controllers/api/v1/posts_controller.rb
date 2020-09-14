@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class PostsController < ::Api::ApiController
@@ -10,9 +12,8 @@ module Api
       end
 
       def show
-        if @post.banned? && current_user.id != @post.user.id
-          raise ::Errors::NotFound
-        end
+        raise ::Errors::NotFound if @post.banned? && current_user.id != @post.user.id
+
         render json: @post, status: :ok
       end
 
@@ -34,7 +35,7 @@ module Api
         if @post.update(post_params)
           render json: @post, status: :ok
         else
-          render json: {errors: @post.errors}, status: :unprocessable_entity
+          render json: { errors: @post.errors }, status: :unprocessable_entity
         end
       end
 
@@ -46,10 +47,10 @@ module Api
 
       def post_params
         {
-            user: current_user,
-            title: params['title'],
-            description: params['description'],
-            photo: params['photo']
+          user: current_user,
+          title: params['title'],
+          description: params['description'],
+          photo: params['photo']
         }
       end
     end

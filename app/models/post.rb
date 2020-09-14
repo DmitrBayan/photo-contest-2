@@ -53,8 +53,9 @@ class Post < ApplicationRecord
 
   def photo_size
     return if photo.blank?
-    if photo.file.size.to_f / (1024 * 1024) > 5.0
-      errors.add(:file, "You cannot upload a file greater than #{5.0}MB")
-    end
+
+    return unless photo.file.size.to_f / (1024 * 1024) > 5.0
+
+    errors.add(:file, 'You cannot upload a file greater than 5 MB')
   end
 end

@@ -91,10 +91,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.action_mailer.delivery_method = :sendgrid_actionmailer
   config.action_mailer.sendgrid_actionmailer_settings = {
-      api_key: Rails.application.credentials.dig(:SENDGRID_API_KEY),
-      raise_delivery_errors: true
+    api_key: Rails.application.credentials.dig(:SENDGRID_API_KEY),
+    raise_delivery_errors: true
   }
-  config.action_mailer.default_url_options = {host: 'photo-contest-2.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'photo-contest-2.herokuapp.com' }
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector

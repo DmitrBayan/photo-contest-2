@@ -22,9 +22,9 @@ module ApplicationHelper
   end
 
   def check_user_ban
-    return if @current_user.common?
+    return if current_user.common?
 
     flash[:warning] = 'You cannot do it, because you are banned!'
-    redirect_to request.referrer
+    redirect_to request.referer
   end
 end

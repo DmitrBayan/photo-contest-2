@@ -14,3 +14,8 @@ Style/AsciiComments:
   Enabled: false
 Layout/LineLength:
   Max: 120
+Metrics/BlockLength:
+  Exclude:
+    - app/admin/*
+    - spec/**/*
+    - config/environments/*

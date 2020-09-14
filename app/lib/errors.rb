@@ -1,25 +1,17 @@
+# frozen_string_literal: true
+
 module Errors
   class Base < StandardError
     attr_reader :message, :status, :details
 
     def initialize(custom_message: nil, custom_status: nil, details: nil)
-      @message = custom_message || message
-      @status = custom_status || status
+      @message = custom_message || 'Unprocessed error'
+      @status = custom_status || :bad_request
       @details = details
     end
 
     def name
       self.class.name
-    end
-
-    private
-
-    def status
-      :bad_request
-    end
-
-    def message
-      'Unprocessed error'
     end
   end
 
