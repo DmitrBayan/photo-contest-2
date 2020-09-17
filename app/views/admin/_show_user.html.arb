@@ -1,0 +1,16 @@
+attributes_table_for user do
+    row :avatar do |user|
+        image_tag user.image_url.show.url if user.image_url.present?
+    end
+    row :first_name
+    row :last_name
+    row :link do
+        link_to user.full_name, user
+    end
+    row :email
+    row :admin
+    row :created_at
+    row :updated_at
+    row :id
+    tag_row :aasm_state
+end

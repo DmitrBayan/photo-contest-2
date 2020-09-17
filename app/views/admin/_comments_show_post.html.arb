@@ -1,0 +1,12 @@
+collection.each do |comment|
+    span "COMMENT ID"
+    span comment.id
+    h3 comment.user.full_name
+    h4 comment.body
+    if comment.replies.present?
+        panel "", style: "background-color: #D8D8D8;" do
+            render partial: 'admin/comments_show_post', locals: {collection: comment.replies}
+        end
+    end
+    hr
+end

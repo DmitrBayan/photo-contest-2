@@ -18,7 +18,7 @@
 class Post < ApplicationRecord
   include AASM
 
-  belongs_to :user
+  belongs_to :user, counter_cache: :count_of_posts
 
   mount_uploader :photo, PhotoUploader
 
@@ -32,6 +32,14 @@ class Post < ApplicationRecord
   scope :by_description, ->(search) { approved.where('description ILIKE ?', "%#{search}%") }
   scope :by_title_or_description, ->(search) { by_title(search).or(by_description(search)) }
   scope :by_user_full_name, ->(search) { approved.where(user_id: User.by_full_name(search).pluck(:id)) }
+
+  def self.user_name_filter(search)
+    by_user_full_name(search)
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[user_name_filter]
+  end
 
   aasm do
     state :moderated, initial: true

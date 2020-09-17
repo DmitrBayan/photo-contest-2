@@ -2,7 +2,18 @@
 
 ActiveAdmin.register Post do
   config.per_page = [5, 10, 50, 100]
-  permit_params :title, :description
+  config.clear_action_items!
+
+  filter :aasm_state, as: :select, label: 'State', collection: ['moderated', 'approved', 'banned']
+  filter :likes_count, as: :numeric_range_filter
+  filter :comments_count, as: :numeric_range_filter
+  filter :user_name_filter, as: :string, label: 'Author name'
+
+  controller do
+    def show
+      @comments = resource.comments
+    end
+  end
 
   batch_action I18n.t(:ban) do |ids|
     batch_action_collection.find(ids).each do |post|
@@ -23,6 +34,10 @@ ActiveAdmin.register Post do
   index do
     selectable_column
     column :id
+    column :author do |post|
+      link_to post.user.full_name,
+              admin_posts_path(q: {user_name_filter: post.user.full_name})
+    end
     column :title
     column :photo do |post|
       image_tag post.photo.admin.url
@@ -65,15 +80,11 @@ ActiveAdmin.register Post do
       row :updated_at
       row :id
       tag_row :aasm_state
+      row :comments do
+        render 'admin/comments_show_post',
+               collection: resource.comments.where({parent_comment_id: nil}) if resource.comments.present?
+      end
     end
-  end
-
-  form do |f|
-    f.inputs do
-      f.input :title
-      f.input :description
-    end
-    f.actions
   end
 
   member_action :approve do

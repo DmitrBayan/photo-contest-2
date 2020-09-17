@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_104707) do
+ActiveRecord::Schema.define(version: 2020_09_17_163244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_104707) do
     t.string "authenticity_token"
     t.string "email"
     t.string "aasm_state"
+    t.integer "count_of_posts", default: 0, null: false
     t.index ["authenticity_token"], name: "index_users_on_authenticity_token", unique: true
   end
 

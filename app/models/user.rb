@@ -32,7 +32,14 @@ class User < ApplicationRecord
 
   scope :by_first_name, ->(search) { where('first_name ILIKE ?', "%#{search}%") }
   scope :by_last_name, ->(search) { where('last_name ILIKE ?', "%#{search}%") }
-  scope :by_full_name, ->(search) { by_first_name(search).or(by_last_name(search)) }
+  scope :by_full_name, ->(search) {
+    first_name, last_name = search.split(' ') if search.present?
+    if first_name.present? && last_name.present?
+      by_first_name(first_name).by_last_name(last_name)
+    else
+      by_first_name(first_name).or(by_last_name(first_name))
+    end
+  }
 
   def full_name
     "#{first_name} #{last_name}"
@@ -45,6 +52,14 @@ class User < ApplicationRecord
     else
       self.update(authenticity_token: token)
     end
+  end
+
+  def self.full_name_filter(search)
+    by_full_name(search)
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[full_name_filter]
   end
 
   aasm do
