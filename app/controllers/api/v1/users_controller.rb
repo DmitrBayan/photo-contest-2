@@ -5,8 +5,9 @@ module Api
     class UsersController < ::Api::ApiController
       before_action :find_user, except: :index
       def index
+        page = [params[:page].to_i, 1].max
         users = User.by_full_name(params[:search])
-                    .paginate(page: params[:page])
+                    .paginate(page: page)
         render json: users, status: :ok
       end
 

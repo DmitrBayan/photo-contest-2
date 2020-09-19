@@ -3,6 +3,7 @@
 module Api
   class ApiController < ActionController::API
     before_action :verify_authenticity_token, only: %i[create destroy update]
+    attr_reader :token
 
     rescue_from ::Errors::Base, with: :render_error
 
@@ -15,7 +16,7 @@ module Api
     end
 
     def current_user
-      User.find_by(authenticity_token: token)
+      @current_user ||= User.find_by(authenticity_token: token)
     end
 
     def validate_user(user)
@@ -23,7 +24,7 @@ module Api
     end
 
     def verify_authenticity_token
-      token = request.headers['X-Token']
+      @token = request.headers['X-Token']
       raise ::Errors::Unauthenticated unless token
 
       raise ::Errors::InvalidCredentials unless current_user
