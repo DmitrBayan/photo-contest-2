@@ -17,6 +17,7 @@
 #
 class Post < ApplicationRecord
   include AASM
+  include PhotoValidator
 
   belongs_to :user, counter_cache: :count_of_posts
 
@@ -26,7 +27,6 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   validates :title, :photo, presence: true
-  validate :photo_size
 
   scope :by_title, ->(search) { approved.where('title ILIKE ?', "%#{search}%") }
   scope :by_description, ->(search) { approved.where('description ILIKE ?', "%#{search}%") }
@@ -57,13 +57,5 @@ class Post < ApplicationRecord
     event :restore do
       transitions to: :moderated, from: :banned
     end
-  end
-
-  def photo_size
-    return if photo.blank?
-
-    return unless photo.file.size.to_f / (1024 * 1024) > 5.0
-
-    errors.add(:file, 'You cannot upload a file greater than 5 MB')
   end
 end

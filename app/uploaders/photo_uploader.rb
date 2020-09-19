@@ -4,19 +4,16 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  process resize_to_limit: [400, 400]
 
-  # if Rails.env.production?
-  #   storage :fog
-  # else
-  #   storage :file
-  # end
-
-  storage :fog
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   def store_dir
     if Rails.env.development?
-      "uploads/development/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+      "public/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     else
       "uploads/production/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end
@@ -31,6 +28,12 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   version :show do
-    process resize_to_limit: [400, 400]
+    process resize_to_fill: [300, 300]
   end
+
+  version :thumb do
+    process resize_to_fill: [40, 40]
+  end
+
+
 end

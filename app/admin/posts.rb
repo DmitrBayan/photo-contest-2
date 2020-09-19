@@ -9,12 +9,6 @@ ActiveAdmin.register Post do
   filter :comments_count, as: :numeric_range_filter
   filter :user_name_filter, as: :string, label: 'Author name'
 
-  controller do
-    def show
-      @comments = resource.comments
-    end
-  end
-
   batch_action I18n.t(:ban) do |ids|
     batch_action_collection.find(ids).each do |post|
       post.ban! :ban if post.may_banned?

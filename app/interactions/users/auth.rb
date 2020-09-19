@@ -26,7 +26,7 @@ module Users
     def from_vk
       user.first_name = auth_hash['info']['first_name'] if user.first_name.blank?
       user.last_name = auth_hash['info']['last_name'] if user.last_name.blank?
-      user.image_url = auth_hash['info']['image'] if user.image_url.blank?
+      user.remote_image_url_url = auth_hash['info']['image'] if user.image_url.blank?
       user.url = auth_hash['info']['urls']['Vkontakte']
       user.access_token = auth_hash['credentials']['token']
     end
@@ -35,7 +35,7 @@ module Users
       first_name, last_name = auth_hash['info']['name'].split(' ')
       user.first_name = first_name if user.first_name.blank?
       user.last_name = last_name if user.last_name.blank?
-      user.image_url = auth_hash['info']['image'] if user.image_url.blank?
+      user.remote_image_url_url = auth_hash['info']['image'] if user.image_url.blank?
       user.access_token = auth_hash['credentials']['token']
     end
   end

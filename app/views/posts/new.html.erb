@@ -1,6 +1,6 @@
 <% provide(:title, "New post") %>
 
-<% render 'shared/form_errors', object: @post %>
+<%= render 'shared/form_errors', object: @post %>
 
 <%= form_for :post, url: posts_path, html: { multipart: true } do |f| %>
 	<div class="form-group">

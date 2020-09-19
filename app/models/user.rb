@@ -19,6 +19,7 @@
 #
 class User < ApplicationRecord
   include AASM
+  include PhotoValidator
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy

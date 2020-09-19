@@ -1,0 +1,65 @@
+.album {
+  border-radius: 10px;
+  .container {
+    .photo {
+      margin: 10px auto 0;
+
+      img {
+        border-style: groove;
+        border-radius: 5px;
+      }
+    }
+    .btn-group {
+      .btn {
+        height: 30px;
+      }
+      .like .btn {
+        width: auto;
+        height: 30px;
+      }
+    }
+  }
+}
+
+.index-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 5px 15px;
+}
+
+.pagination > * {
+  border: solid 1px gray;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 5px auto
+}
+.pagination a:last-child {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.pagination a:first-child {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.pagination a, .current, .gap {
+  color: black;
+  float: left;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+.pagination .current {
+  background-color: #4CAF50;
+  color: white;
+}
+.pagination .disabled {
+  display: none;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+
+
+

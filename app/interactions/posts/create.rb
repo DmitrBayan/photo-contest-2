@@ -15,7 +15,7 @@ module Posts
 
     def execute
       post = user.posts.build(title: title, description: description, photo: photo)
-      post.save ? post : post.errors
+      errors.merge!(post.errors) unless post.save
     end
   end
 end

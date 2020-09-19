@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     else
       flash[:warning] = outcome.errors.full_messages.to_s
     end
-    redirect_to @post
+    redirect_to request.referer
   end
 
   def destroy
