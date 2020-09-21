@@ -1,6 +1,6 @@
 <% provide(:title, @user.full_name) %>
 
-<% render 'shared/form_errors', object: @user %>
+<%= render 'shared/form_errors', object: @user %>
 
 <%= form_for(@user) do |f| %>
   <form class="container">
