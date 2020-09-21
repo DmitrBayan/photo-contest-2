@@ -7,11 +7,11 @@ ActiveAdmin.register User do
   permit_params :admin
 
   filter :full_name_filter, as: :string, label: 'Name'
-  filter :aasm_state, as: :select, label: 'State', collection: ['common', 'banned']
+  filter :aasm_state, as: :select, label: 'State', collection: %w[common banned]
   filter :admin
   filter :count_of_posts, as: :numeric_range_filter
 
-  actions :all, except: [:edit, :destroy]
+  actions :all, except: %i[edit destroy]
 
   batch_action :destroy, false
 

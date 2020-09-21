@@ -34,7 +34,7 @@ class User < ApplicationRecord
 
   scope :by_first_name, ->(search) { where('first_name ILIKE ?', "%#{search}%") }
   scope :by_last_name, ->(search) { where('last_name ILIKE ?', "%#{search}%") }
-  scope :by_full_name, ->(search) {
+  scope :by_full_name, lambda { |search|
     first_name, last_name = search.split(' ') if search.present?
     if first_name.present? && last_name.present?
       by_first_name(first_name).by_last_name(last_name)
@@ -52,7 +52,7 @@ class User < ApplicationRecord
     if User.find_by(authenticity_token: token)
       set_authenticity_token
     else
-      self.update(authenticity_token: token)
+      update(authenticity_token: token)
     end
   end
 

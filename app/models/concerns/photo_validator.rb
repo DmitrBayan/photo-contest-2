@@ -22,9 +22,9 @@ module PhotoValidator
     end
 
     def minimum_photo_size
-      if file.width < min_width || file.height < min_height
-        errors.add :photo, "should be #{min_width}x#{min_height}px minimum."
-      end
+      return unless file.width < min_width || file.height < min_height
+
+      errors.add :photo, "should be #{min_width}x#{min_height}px minimum."
     end
 
     def file_present?

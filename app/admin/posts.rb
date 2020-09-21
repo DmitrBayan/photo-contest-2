@@ -4,7 +4,7 @@ ActiveAdmin.register Post do
   config.per_page = [5, 10, 50, 100]
   config.clear_action_items!
 
-  filter :aasm_state, as: :select, label: 'State', collection: ['moderated', 'approved', 'banned']
+  filter :aasm_state, as: :select, label: 'State', collection: %w[moderated approved banned]
   filter :likes_count, as: :numeric_range_filter
   filter :comments_count, as: :numeric_range_filter
   filter :user_name_filter, as: :string, label: 'Author name'
@@ -30,7 +30,7 @@ ActiveAdmin.register Post do
     column :id
     column :author do |post|
       link_to post.user.full_name,
-              admin_posts_path(q: {user_name_filter: post.user.full_name})
+              admin_posts_path(q: { user_name_filter: post.user.full_name })
     end
     column :title
     column :photo do |post|
@@ -75,8 +75,10 @@ ActiveAdmin.register Post do
       row :id
       tag_row :aasm_state
       row :comments do
-        render 'admin/comments_show_post',
-               collection: resource.comments.where({parent_comment_id: nil}) if resource.comments.present?
+        if resource.comments.present?
+          render 'admin/comments_show_post',
+                 collection: resource.comments.where({ parent_comment_id: nil })
+        end
       end
     end
   end
