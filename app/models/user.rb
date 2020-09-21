@@ -19,7 +19,8 @@
 #
 class User < ApplicationRecord
   include AASM
-  include PhotoValidator
+  include UserPhotoValidator
+  include EmailValidator
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -61,6 +62,10 @@ class User < ApplicationRecord
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[full_name_filter]
+  end
+
+  def file
+    image_url
   end
 
   aasm do

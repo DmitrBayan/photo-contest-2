@@ -17,7 +17,7 @@
 #
 class Post < ApplicationRecord
   include AASM
-  include PhotoValidator
+  include PostPhotoValidator
 
   belongs_to :user, counter_cache: :count_of_posts
 
@@ -39,6 +39,10 @@ class Post < ApplicationRecord
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[user_name_filter]
+  end
+
+  def file
+    photo
   end
 
   aasm do
