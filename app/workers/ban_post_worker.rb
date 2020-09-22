@@ -5,7 +5,7 @@ class BanPostWorker
 
   def perform(post_id)
     post = Post.find_by(id: post_id)
-    return if post.blank? || post.moderated?
+    return unless post.present? || post.banned?
 
     post.destroy
   end
