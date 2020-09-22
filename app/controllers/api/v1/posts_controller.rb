@@ -5,10 +5,16 @@ module Api
     class PostsController < ::Api::ApiController
       before_action :find_post, except: :index
       def index
+        per_page = [params[:per_page].to_i, 1].max
+        page = [params[:page].to_i, 1].max
         posts = Post.by_title_or_description(params[:search])
                     .or(Post.by_user_full_name(params[:search]))
                     .reorder(params[:sorting])
-        render json: posts, status: :ok
+                    .paginate(page: page, per_page: per_page)
+        render json: posts,
+               status: :ok,
+               meta: pagination_meta(posts),
+               adapter: :json
       end
 
       def show
@@ -42,7 +48,8 @@ module Api
       private
 
       def find_post
-        @post = Post.find(params[:id])
+        @post = Post.find_by(id: params[:id])
+        raise ::Errors::NotFound if @post.blank?
       end
 
       def post_params

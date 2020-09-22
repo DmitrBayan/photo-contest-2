@@ -9,6 +9,7 @@ FactoryBot.define do
     admin { Faker::Boolean.boolean(true_ratio: 0.1) }
     uid { Faker::Number.number(digits: 10) }
     access_token { Faker::Config.random.seed }
+    email { "#{Faker::Internet.user_name}@customdomain.com" }
 
     trait(:with_posts_with_likes) do
       after(:create) do |user|
