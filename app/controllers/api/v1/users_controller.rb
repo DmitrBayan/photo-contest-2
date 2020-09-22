@@ -11,14 +11,14 @@ module Api
                     .paginate(page: page, per_page: per_page)
         render json: users,
                status: :ok,
-               meta: pagination_meta(users),
+               meta: pagination_meta(users, current_user_meta),
                adapter: :json
       end
 
       def show
         render json: @user,
                status: :ok,
-               scope: current_user,
+               meta: current_user_meta,
                adapter: :json
       end
 
@@ -42,7 +42,8 @@ module Api
       private
 
       def find_user
-        @user = User.find(params[:id])
+        @user = User.find_by(id: params[:id])
+        raise ::Errors::NotFound if @user.blank?
       end
 
       def user_params

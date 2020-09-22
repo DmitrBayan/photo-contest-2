@@ -13,14 +13,17 @@ module Api
                     .paginate(page: page, per_page: per_page)
         render json: posts,
                status: :ok,
-               meta: pagination_meta(posts),
+               meta: pagination_meta(posts, current_user_meta),
                adapter: :json
       end
 
       def show
         raise ::Errors::NotFound if @post.banned? && current_user.id != @post.user.id
 
-        render json: @post, status: :ok
+        render json: @post,
+               status: :ok,
+               meta: current_user_meta,
+               adapter: :json
       end
 
       def create

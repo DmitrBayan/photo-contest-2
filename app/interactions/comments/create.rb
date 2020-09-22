@@ -8,7 +8,9 @@ module Comments
     integer :parent_comment_id, default: nil
 
     def execute
-      post = Post.find(post_id)
+      post = Post.find_by(id: post_id)
+      raise ::Errors::NotFound if post.blank?
+
       post.comments.create(body: body, user_id: user.id,
                            parent_comment_id: parent_comment_id)
     end

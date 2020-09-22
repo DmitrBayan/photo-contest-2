@@ -24,7 +24,8 @@ module Api
       private
 
       def find_comment
-        @comment = Comment.find(params[:id])
+        @comment = Comment.find_by(id: params[:id])
+        raise ::Errors::NotFound if @comment.blank?
       end
 
       def comment_params

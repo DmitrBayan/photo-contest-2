@@ -2,11 +2,12 @@
 
 module Api
   class ApiController < ActionController::API
-    include PaginatableData
+    attr_accessor :token
+
+    include MetaData
 
     before_action :verify_authenticity_token, only: %i[create destroy update]
-    before_action :get_token
-    attr_reader :token
+
 
     rescue_from ::Errors::Base, with: :render_error
 
@@ -32,7 +33,7 @@ module Api
       raise ::Errors::InvalidCredentials unless current_user
     end
 
-    def get_token
+    def token
       @token ||= request.headers['X-Token']
     end
 
