@@ -19,6 +19,14 @@ module MetaData
       end
     end
 
+    def liked?(post = nil, meta = {})
+      return if post.blank?
+
+      {
+        liked: @post.likes.find_by(user_id: current_user.id).present?
+      }.merge(meta)
+    end
+
     def pagination_meta(object, meta = {})
       {
         current_page: object.current_page,

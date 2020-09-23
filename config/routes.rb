@@ -5,10 +5,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users
       resources :posts do
+        post '/comments/:parent_comment_id/comments' => 'comments#create', as: 'post_comments_comments'
         resources :comments
         resource :likes
       end
     end
+    match '*not_found' => 'api#render_404', via: :all
   end
   get 'errors/error_404'
   ActiveAdmin.routes(self)

@@ -2,13 +2,12 @@
 
 module Api
   class ApiController < ActionController::API
-    attr_accessor :token
-
     include MetaData
 
     before_action :verify_authenticity_token, only: %i[create destroy update]
 
-
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from AbstractController::ActionNotFound, with: :render_404
     rescue_from ::Errors::Base, with: :render_error
 
     def validate_result(outcome)
@@ -35,6 +34,10 @@ module Api
 
     def token
       @token ||= request.headers['X-Token']
+    end
+
+    def render_404
+      raise ::Errors::NotFound
     end
 
     private

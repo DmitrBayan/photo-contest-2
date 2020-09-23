@@ -22,7 +22,7 @@ module Api
 
         render json: @post,
                status: :ok,
-               meta: current_user_meta,
+               meta: liked?(@post, current_user_meta),
                adapter: :json
       end
 
