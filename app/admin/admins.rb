@@ -21,7 +21,7 @@ ActiveAdmin.register User, as: 'Admins' do
     id_column
     column :full_name
     column :avatar do |user|
-      image_tag user.image_url.admin.url if user.image_url.present?
+      image_tag user.avatar.admin.url if user.avatar.present?
     end
     toggle_bool_column :admin
     actions

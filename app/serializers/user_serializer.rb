@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :image_url
+  attributes :id, :first_name, :last_name, :avatar
 
   has_many :posts
 
-  def image_url
-    object.image_url.show
+  def avatar
+    object.avatar.show
   end
 end

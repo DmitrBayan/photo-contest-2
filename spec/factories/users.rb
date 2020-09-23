@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :user do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    image_url { File.open('spec/support/users/user_default.png') }
+    avatar { File.open('spec/support/users/user_default.png') }
     provider { 'vkontakte' }
     admin { Faker::Boolean.boolean(true_ratio: 0.1) }
     uid { Faker::Number.number(digits: 10) }

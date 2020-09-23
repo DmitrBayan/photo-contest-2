@@ -6,7 +6,7 @@
           <% if current_user.banned? %>
             (BANNED)
           <% end %></a>
-        <img src=<%= current_user.image_url.thumb %> alt='Avatar' style='border-radius: 50%'/>
+        <img src=<%= current_user.avatar.thumb %> alt='Avatar' style='border-radius: 50%'/>
       </div>
       <div class="dropdown-menu dropdown-menu-right">
         <%= link_to "My profile", current_user, class: "dropdown-item" %>

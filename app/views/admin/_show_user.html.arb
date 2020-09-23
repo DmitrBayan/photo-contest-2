@@ -2,7 +2,7 @@
 
 attributes_table_for user do
   row :avatar do |user|
-    image_tag user.image_url.show.url if user.image_url.present?
+    image_tag user.avatar.show.url if user.avatar.present?
   end
   row :first_name
   row :last_name

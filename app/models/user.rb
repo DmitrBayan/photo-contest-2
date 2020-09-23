@@ -9,7 +9,7 @@
 #  uid          :string           not null
 #  first_name   :string
 #  last_name    :string
-#  image_url    :string
+#  avatar       :string
 #  url          :string
 #  provider     :string           not null
 #  created_at   :datetime         not null
@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   validates :access_token, :uid, :provider, presence: true
 
-  mount_uploader :image_url, PhotoUploader
+  mount_uploader :avatar, PhotoUploader
 
   scope :by_first_name, ->(search) { where('first_name ILIKE ?', "%#{search}%") }
   scope :by_last_name, ->(search) { where('last_name ILIKE ?', "%#{search}%") }
@@ -65,7 +65,7 @@ class User < ApplicationRecord
   end
 
   def file
-    image_url
+    avatar
   end
 
   aasm do

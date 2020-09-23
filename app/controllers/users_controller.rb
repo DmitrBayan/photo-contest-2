@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :image_url, :email)
+    params.require(:user).permit(:first_name, :last_name, :avatar, :email)
   end
 
   def set_auth_token

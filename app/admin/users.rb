@@ -34,7 +34,7 @@ ActiveAdmin.register User do
     column :id
     column :full_name
     column :avatar do |user|
-      image_tag user.image_url.admin.url if user.image_url.present?
+      image_tag user.avatar.admin.url if user.avatar.present?
     end
     tag_column :aasm_state
     column :moderation do |user|
