@@ -14,7 +14,7 @@ module Api
                     .paginate(page: page, per_page: per_page)
         render json: posts,
                status: :ok,
-               meta: pagination_meta(posts, current_user_meta),
+               meta: pagination_meta(posts),
                adapter: :json,
                scope: current_user
       end
@@ -24,7 +24,6 @@ module Api
 
         render json: @post,
                status: :ok,
-               meta: liked?(@post, current_user_meta),
                adapter: :json
       end
 

@@ -11,14 +11,13 @@ module Api
                     .paginate(page: page, per_page: per_page)
         render json: users,
                status: :ok,
-               meta: pagination_meta(users, current_user_meta),
+               meta: pagination_meta(users),
                adapter: :json
       end
 
       def show
         render json: @user,
                status: :ok,
-               meta: current_user_meta,
                adapter: :json
       end
 
