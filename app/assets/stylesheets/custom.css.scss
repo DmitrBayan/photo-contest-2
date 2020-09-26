@@ -104,6 +104,17 @@
   background-color: #ddd;
 }
 
+.attached-image img{
+  display: none;
+  border-style: groove;
+  border-radius: 5px;
+  width: auto;
+  max-width: 1000px;
+  height: auto;
+  max-height: 1000px;
+  margin: 0 0 10px;
+}
+
 
 
 

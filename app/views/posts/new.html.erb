@@ -1,4 +1,5 @@
 <% provide(:title, "New post") %>
+<%= javascript_include_tag 'application' %>
 
 <%= render 'shared/form_errors', object: @post %>
 
@@ -19,10 +20,10 @@
 
   <div class="form-group">
     <label for="exampleFormControlFile1">Upload a photo here</label>
-    <%= f.file_field :photo, accept: 'image/jpg,image/gif,image/png,image/jpeg', required: true %>
+    <%= f.file_field :photo, accept: 'image/*', required: true, onchange: "loadFile(event)" %>
   </div>
-  <div class="upladed-file">
-
+  <div class="attached-image">
+    <img id="output"/>
   </div>
 
 
