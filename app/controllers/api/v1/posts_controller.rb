@@ -9,12 +9,14 @@ module Api
         page = [params[:page].to_i, 1].max
         posts = Post.by_title_or_description(params[:search])
                     .or(Post.by_user_full_name(params[:search]))
+                    .includes(:likes, :user, comments: :user)
                     .reorder(params[:sorting])
                     .paginate(page: page, per_page: per_page)
         render json: posts,
                status: :ok,
                meta: pagination_meta(posts, current_user_meta),
-               adapter: :json
+               adapter: :json,
+               scope: current_user
       end
 
       def show

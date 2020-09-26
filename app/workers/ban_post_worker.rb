@@ -5,8 +5,6 @@ class BanPostWorker
 
   def perform(post_id)
     post = Post.find_by(id: post_id)
-    return unless post.present? || post.banned?
-
-    post.destroy
+    post.destroy if post&.banned?
   end
 end

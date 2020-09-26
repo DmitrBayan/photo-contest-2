@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :photo, :likes_count, :comments_count
+  attributes :id, :title, :description, :photo, :likes_count, :comments_count, :liked
 
   belongs_to :user
 
@@ -9,5 +9,9 @@ class PostSerializer < ActiveModel::Serializer
 
   def photo
     object.photo.show
+  end
+
+  def liked
+    object.likes.select { |like| like.user_id == current_user.id }.present?
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :logged?, :check_user_ban, only: %i[create destroy]
+  before_action :must_logged, :check_user_ban, only: %i[create destroy]
 
   def new; end
 
