@@ -24,7 +24,7 @@
                   </div>
                 </div>
                 <small class="text-muted"><%= (post.created_at.to_formatted_s(:short)) %></small>
-                <small class="text-muted"><%= post.user.full_name %></small>
+                <small class="text-muted"><%= link_to post.user.full_name, post.user %></small>
               </div>
             </div>
           </div>
