@@ -15,7 +15,6 @@ module Api
         render json: posts,
                status: :ok,
                meta: pagination_meta(posts),
-               adapter: :json,
                scope: current_user
       end
 
@@ -24,7 +23,6 @@ module Api
 
         render json: @post,
                status: :ok,
-               adapter: :json
       end
 
       def create
