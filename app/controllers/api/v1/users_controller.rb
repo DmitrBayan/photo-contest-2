@@ -3,7 +3,7 @@
 module Api
   module V1
     class UsersController < ::Api::ApiController
-      before_action :find_user, except: :index
+      before_action :find_user, except: %i[index current]
       def index
         per_page = [params[:per_page].to_i, 1].max
         page = [params[:page].to_i, 1].max
@@ -36,6 +36,10 @@ module Api
         else
           render json: { errors: @user.errors }, status: :unprocessable_entity
         end
+      end
+
+      def current
+        render json: current_user
       end
 
       private

@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      get 'users/current' => 'users#current'
       resources :users
       resources :posts do
         post '/comments/:parent_comment_id/comments' => 'comments#create', as: 'post_comments_comments'
