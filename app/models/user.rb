@@ -19,8 +19,7 @@
 #
 class User < ApplicationRecord
   include AASM
-  include UserPhotoValidator
-  include EmailValidator
+  include ActiveModel::Validations
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -29,6 +28,10 @@ class User < ApplicationRecord
   has_secure_token :authenticity_token
 
   validates :access_token, :uid, :provider, presence: true
+  validates :email, email: true
+  validates :avatar, photo_resolution: { min_width: 50, min_height: 50 }
+  validates :avatar, file_size: { size: 2 }
+
 
   mount_uploader :avatar, PhotoUploader
 

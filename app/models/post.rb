@@ -17,7 +17,7 @@
 #
 class Post < ApplicationRecord
   include AASM
-  include PostPhotoValidator
+  include ActiveModel::Validations
 
   belongs_to :user, counter_cache: :count_of_posts
 
@@ -27,6 +27,8 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   validates :title, :photo, presence: true
+  validates :photo, photo_resolution: { min_width: 300, min_height: 300 }
+  validates :photo, file_size: { size: 5 }
 
   scope :by_title, ->(search) { approved.where('title ILIKE ?', "%#{search}%") }
   scope :by_description, ->(search) { approved.where('description ILIKE ?', "%#{search}%") }
