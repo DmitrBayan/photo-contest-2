@@ -22,7 +22,7 @@ module Api
         raise ::Errors::NotFound if @post.banned? && current_user.id != @post.user.id
 
         render json: @post,
-               status: :ok,
+               status: :ok
       end
 
       def create
