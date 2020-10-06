@@ -32,7 +32,6 @@ class User < ApplicationRecord
   validates :avatar, photo_resolution: { min_width: 50, min_height: 50 }
   validates :avatar, file_size: { size: 2 }
 
-
   mount_uploader :avatar, PhotoUploader
 
   scope :by_first_name, ->(search) { where('first_name ILIKE ?', "%#{search}%") }
