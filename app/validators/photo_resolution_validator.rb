@@ -2,8 +2,8 @@
 
 class PhotoResolutionValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    min_width = options[:min_width]
-    min_height = options[:min_height]
+    min_width = options[:min_width] - 1
+    min_height = options[:min_height] - 1
     return if value.blank?
     return unless value.width < min_width || value.height < min_height
 

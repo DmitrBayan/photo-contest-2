@@ -29,7 +29,7 @@ class PostsController < ApplicationController
     if outcome.valid?
       @post = outcome.result
       flash[:success] = 'Post submitted for moderation!'
-      redirect_to current_user
+      redirect_to @post
     else
       @post = outcome
       render 'new'

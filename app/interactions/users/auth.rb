@@ -13,7 +13,8 @@ module Users
         user.errors.add(:base, 'Unknown provider')
       end
       user.set_authenticity_token unless user.authenticity_token
-      user.save ? user : user.errors
+      errors.merge!(user.errors) unless user.save
+      user
     end
 
     private
@@ -26,7 +27,7 @@ module Users
     def from_vk
       user.first_name = auth_hash['info']['first_name'] if user.first_name.blank?
       user.last_name = auth_hash['info']['last_name'] if user.last_name.blank?
-      user.remote_avatar_url = auth_hash['extra']['raw_info']['photo_400_orig'] if user.avatar.blank?
+      user.remote_avatar_url = auth_hash['info']['image'] if user.avatar.blank?
       user.url = auth_hash['info']['urls']['Vkontakte']
       user.access_token = auth_hash['credentials']['token']
     end
