@@ -13,11 +13,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    if Rails.env.development?
-      "public/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-    else
-      "uploads/production/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-    end
+    "public/#{Rails.env}/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   def extension_whitelist

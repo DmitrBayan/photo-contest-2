@@ -6,6 +6,10 @@ class PostsController < ApplicationController
 
   def new
     @post = ::Posts::Create.new
+    if current_user.provider == 'vkontakte'
+      vk = VkontakteApi::Client.new(current_user.access_token)
+      @collection = vk.photos.get_all(vk_api_params)
+    end
   end
 
   def index
@@ -54,7 +58,16 @@ class PostsController < ApplicationController
       user: current_user,
       title: params[:post]['title'],
       description: params[:post]['description'],
-      photo: params[:post]['photo']
+      photo: params[:post]['photo'],
+      remote_photo: params[:post]['remote_photo']
+    }
+  end
+
+  def vk_api_params
+    {
+        count: 8,
+        owner_id: current_user.uid,
+        v: 5.21
     }
   end
 end
