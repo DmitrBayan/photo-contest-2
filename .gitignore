@@ -48,7 +48,7 @@ yarn-debug.log*
 /public/packs
 /public/packs-test
 /node_modules
-/public/public/uploads
+/public/public
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
