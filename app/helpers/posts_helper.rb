@@ -2,7 +2,7 @@
 
 module PostsHelper
   class Share
-    def sharing(post, url)
+    def share_link(post, url)
       'http://vk.com/share.php?url=' + url + '&image=' + post.photo.url + '&title=' + post.title
     end
   end

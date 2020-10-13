@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   def share
     @post = Post.find(params[:post_id])
     share = PostsHelper::Share.new
-    redirect_to share.sharing(@post, params[:url])
+    redirect_to share.share_link(@post, params[:url])
   end
 
   private
