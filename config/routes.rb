@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     post '/set_auth_token' => 'users#set_auth_token', on: :member
   end
   resources :posts do
+    get '/share' => 'posts#share'
     resources :comments
     resource :likes
   end

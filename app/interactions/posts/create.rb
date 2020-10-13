@@ -5,7 +5,8 @@ module Posts
     object :user
     string :title
     string :description
-    file :photo, class: ::PhotoUploader
+    file :photo, class: ::PhotoUploader, default: nil
+    string :remote_photo, default: nil
 
     validates :title, presence: true
 
@@ -14,8 +15,9 @@ module Posts
     end
 
     def execute
-      post = user.posts.build(title: title, description: description, photo: photo)
+      post = user.posts.build(title: title, description: description, photo: photo, remote_photo_url: remote_photo)
       errors.merge!(post.errors) unless post.save
+      post
     end
   end
 end

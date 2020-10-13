@@ -115,7 +115,21 @@
   margin: 0 0 10px;
 }
 
+.vk-photo
+{
+  img {
+    border-style: groove;
+    border-radius: 5px;
+    width: auto;
+    height: auto;
+    max-width: 250px;
+    max-height: 250px;
+    margin: auto;
+  }
+  input {
 
+  }
+}
 
 
 
