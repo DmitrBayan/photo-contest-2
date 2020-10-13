@@ -13,6 +13,7 @@
           <div class="like-post-<%= @post.id %>">
             <%= render 'likes/like', post: @post %>
           </div>
+          <%= link_to "Share", post_share_path(post_id: @post.id, url: request.original_url), class: 'btn btn-outline-info' %>
           <% if current_user?(@post.user) %>
             <%= link_to "Delete photo", @post, method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "You sure?"} %>
           <% end %>

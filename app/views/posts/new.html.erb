@@ -1,4 +1,8 @@
 <% provide(:title, 'New post') %>
+
+<%= javascript_include_tag 'application' %>
+<%= render 'shared/form_errors', object: @post %>
+
 <%= form_for :post, url: posts_path do |f| %>
   <form class="form-horizontal" role="form">
     <div class="form-group">
@@ -14,9 +18,12 @@
     <div class="col-sm-10">
           <span class="control-fileupload">
             <br>
-            <%= f.file_field :photo, accept: 'image/*' %>
+            <%= f.file_field :photo, accept: 'image/*', onchange: 'loadFile(event)' %>
             <label for="file" class="text-left blockquote-footer ">Please choose a file on your computer.</label>
           </span>
+      <div class="attached-image">
+        <img id="output"/>
+      </div>
       <% if current_user.provider == 'vkontakte' %>
         Or upload from VK <br>
         <small>Note: if you're upload photo via uploader, photo from VK cannot be published</small>

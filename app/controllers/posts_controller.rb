@@ -3,13 +3,10 @@
 class PostsController < ApplicationController
   before_action :must_logged, only: %i[create destroy new]
   before_action :check_user_ban, only: %i[create new]
+  before_action :get_vk_collection, only: %i[create new]
 
   def new
-    @post = ::Posts::Create.new
-    if current_user.provider == 'vkontakte'
-      vk = VkontakteApi::Client.new(current_user.access_token)
-      @collection = vk.photos.get_all(vk_api_params)
-    end
+    @post ||= ::Posts::Create.new
   end
 
   def index
@@ -51,7 +48,20 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 
+  def share
+    @post = Post.find(params[:post_id])
+    share = PostsHelper::Share.new
+    redirect_to share.sharing(@post, params[:url])
+  end
+
   private
+
+  def get_vk_collection
+    return unless current_user.provider == 'vkontakte'
+
+    vk = VkontakteApi::Client.new(current_user.access_token)
+    @collection = vk.photos.get_all(vk_api_params)
+  end
 
   def post_params
     {
