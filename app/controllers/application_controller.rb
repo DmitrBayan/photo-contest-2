@@ -9,10 +9,14 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  helper_method :current_user
+  helper_method :current_user, :current_country
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def current_country
+    @current_country ||= Geocoder.search(request.remote_ip).first.country
   end
 
   def authenticate_admin_user!

@@ -21,7 +21,16 @@
       <excludeFolder url="file://$MODULE_DIR$/components" />
       <excludeFolder url="file://$MODULE_DIR$/log" />
       <excludeFolder url="file://$MODULE_DIR$/public/packs" />
+      <excludeFolder url="file://$MODULE_DIR$/public/public/uploads" />
       <excludeFolder url="file://$MODULE_DIR$/public/system" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/14" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/15" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/16" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/3" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/4" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/5" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/post/photo/6" />
+      <excludeFolder url="file://$MODULE_DIR$/public/uploads/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cache" />
@@ -314,6 +323,7 @@
     <orderEntry type="library" scope="PROVIDED" name="formatador (v0.2.5, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="formtastic (v3.1.5, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="formtastic_i18n (v0.6.0, RVM: ruby-2.5.8) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="geocoder (v1.6.3, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="has_scope (v0.7.2, RVM: ruby-2.5.8) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v4.1.0, RVM: ruby-2.5.8) [gem]" level="application" />

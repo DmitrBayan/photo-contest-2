@@ -69,7 +69,8 @@ class PostsController < ApplicationController
       title: params[:post]['title'],
       description: params[:post]['description'],
       photo: params[:post]['photo'],
-      remote_photo: params[:post]['remote_photo']
+      remote_photo: params[:post]['remote_photo'],
+      ip: request.remote_ip
     }
   end
 end

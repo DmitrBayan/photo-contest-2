@@ -13,6 +13,14 @@
         <li class="nav-item active">
           <%= link_to "Posts", posts_path, class: "nav-link" %>
         </li>
+        <li class="nav-item country">
+          Your country is:
+          <% if current_country %>
+            <span class="identify_country"> <%= current_country %> </span>
+          <% else %>
+            <span class="unidentidy_country">Can't identify your country</span>
+          <% end %>
+        </li>
       </ul>
     </div>
     <%= render 'shared/navbar_right' %>
