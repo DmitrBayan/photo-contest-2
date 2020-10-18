@@ -12,6 +12,6 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def liked
-    object.likes.select { |like| like.user_id == current_user.id }.present?
+    object.likes.map(&:user_id).include?(current_user.id)
   end
 end

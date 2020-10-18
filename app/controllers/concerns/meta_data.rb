@@ -4,13 +4,14 @@ module MetaData
   extend ActiveSupport::Concern
 
   included do
-    def pagination_meta(object)
+    def pagination_meta(collection)
       {
-        current_page: object.current_page,
-        next_page: object.next_page,
-        previous_page: object.previous_page,
-        total_pages: object.total_pages,
-        per_page: object.per_page
+        current_page: collection.current_page,
+        next_page: collection.next_page,
+        previous_page: collection.previous_page,
+        total_pages: collection.total_pages,
+        per_page: collection.per_page,
+        total_entries: collection.total_entries
       }
     end
   end
