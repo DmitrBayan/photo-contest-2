@@ -109,14 +109,22 @@
   border-style: groove;
   border-radius: 5px;
   width: auto;
-  max-width: 1000px;
+  max-width: 10vw;
   height: auto;
-  max-height: 1000px;
+  max-height: 10vh;
   margin: 0 0 10px;
 }
 
-.vk-photo
+.col-vk-photo
 {
+  border-style: dotted;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 2px;
+}
+.card-vk-photo
+{
+  width: 16rem;
   img {
     border-style: groove;
     border-radius: 5px;
@@ -124,10 +132,22 @@
     height: auto;
     max-width: 250px;
     max-height: 250px;
-    margin: auto;
   }
-  input {
+  .custom-radio {
+    display: flex;
+    margin: auto;
+    margin-bottom: 5px;
+  }
+}
 
+.country {
+  margin: auto;
+  color: lightcyan;
+  .unidentidy_country {
+    color: red;
+  }
+  .identify_country {
+    color: green;
   }
 }
 

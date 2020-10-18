@@ -31,19 +31,21 @@
         <span class="btn btn-info" data-toggle="collapse" data-target="#upload"
               aria-controls="navbarToggleExternalContent" aria-expanded="false"
               aria-label="Toggle navigation"> Open list </span>
-        <div class="collapse" id="upload">
-          <div class="row">
-            <% @collection.items.each do |item| %>
-              <div class="col-vk-photo">
-                <div class="vk-photo" style="width: 18rem;">
-                  <a><img src="<%= item.photo_604 %>" class="card-img-top"> </a>
-                  <%= f.radio_button :remote_photo, item.photo_604 %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
       <% end %>
+    </div>
+    <div class="collapse" id="upload">
+      <div class="row">
+        <% if @collection.present? %>
+          <% @collection.each do |item| %>
+            <div class="col-vk-photo">
+              <div class="card-vk-photo">
+                <a><img src="<%= item %>" class="card-img-top"> </a>
+                <%= f.radio_button :remote_photo, item, class: 'custom-radio' %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <hr>
     <%= f.submit "Upload", class: "btn btn-secondary " %>
