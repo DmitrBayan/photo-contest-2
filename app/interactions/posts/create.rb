@@ -16,11 +16,10 @@ module Posts
     end
 
     def execute
-      coordinates = Geocoder.search(ip).first.coordinates unless ip == '127.0.0.1'
+      # coordinates = Geocoder.search(ip).first.coordinates unless ip == '127.0.0.1'
       post = user.posts.build(title: title,
                               description: description,
-                              photo: photo, remote_photo_url: remote_photo,
-                              coordinates: coordinates)
+                              photo: photo, remote_photo_url: remote_photo)
       errors.merge!(post.errors) unless post.save
       post
     end
