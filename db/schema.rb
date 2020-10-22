@@ -39,13 +39,6 @@ ActiveRecord::Schema.define(version: 2020_10_22_140511) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.string "ticker"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "likes", force: :cascade do |t|
     t.bigint "post_id", null: false
     t.bigint "user_id", null: false
@@ -65,22 +58,13 @@ ActiveRecord::Schema.define(version: 2020_10_22_140511) do
     t.integer "comments_count", default: 0, null: false
     t.text "description"
     t.string "title"
-    t.float "latitude"
-    t.float "longitude"
     t.float "coordinates", default: [], array: true
-    t.string "address", default: [], array: true
+    t.string "address"
+    t.float "longitude"
+    t.float "latitude"
+    t.string "ip_address"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
-  end
-
-  create_table "price_data", force: :cascade do |t|
-    t.date "price_data"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.float "open_price"
-    t.float "close_price"
-    t.bigint "company_id"
-    t.index ["company_id"], name: "index_price_data_on_company_id"
   end
 
   create_table "users", force: :cascade do |t|
