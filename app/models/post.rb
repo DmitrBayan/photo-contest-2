@@ -23,7 +23,8 @@ class Post < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
-  geocoded_by :address, params: :ip_lookup
+  geocoded_by :ip_address,
+              latitude: :lat, longitude: :lon
 
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
