@@ -23,7 +23,7 @@ class Post < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
-  reverse_geocoded_by :latitude, :longitude
+  geocoded_by :address, params: :ip_lookup
 
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -32,7 +32,7 @@ class Post < ApplicationRecord
   validates :photo, photo_resolution: { min_width: 300, min_height: 300 }
   validates :photo, file_size: { size: 5 }
 
-  after_validation :reverse_geocode
+  after_validation :geocode
 
   scope :by_title, ->(search) { approved.where('title ILIKE ?', "%#{search}%") }
   scope :by_description, ->(search) { approved.where('description ILIKE ?', "%#{search}%") }
