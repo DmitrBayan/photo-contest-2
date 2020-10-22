@@ -29,7 +29,7 @@ module PostsHelper
   class Location
     def define_location(post)
       if post.coordinates.present?
-        [Geocoder.search(post.coordinates).first.country, Geocoder.search(post.coordinates).first.city]
+        [Geocoder.search(post.coordinates).first.country, Geocoder.search(post.coordinates).first.city].compact.join(', ')
       end
     end
   end
