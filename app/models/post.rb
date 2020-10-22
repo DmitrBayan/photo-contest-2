@@ -23,7 +23,7 @@ class Post < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
-  reverse_geocoded_by :longitude, :latitude
+  reverse_geocoded_by :latitude, :longitude
 
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
