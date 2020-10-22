@@ -21,8 +21,8 @@
       </div>
       <small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago.</small>
       <small class="text-muted"><%= @post.user.full_name %></small>
-      <% unless @post.coordinates.blank? %>
-        This photo from: <%= @post.coordinates %>
+      <% unless @location.blank? %>
+        This photo from: <%= @location %>
       <% end %>
     </div>
   </div>

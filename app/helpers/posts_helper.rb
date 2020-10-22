@@ -25,4 +25,12 @@ module PostsHelper
       'http://vk.com/share.php?url=' + url + '&image=' + post.photo.url + '&title=' + post.title
     end
   end
+
+  class Location
+    def define_location(post)
+      if post.coordinates.present?
+        [Geocoder.search(post.coordinates).first.country, Geocoder.search(post.coordinates).first.city]
+      end
+    end
+  end
 end

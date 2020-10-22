@@ -22,6 +22,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments
+    @location = PostsHelper::Location.new.define_location(@post)
   end
 
   def create
