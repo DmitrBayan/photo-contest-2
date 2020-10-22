@@ -1,0 +1,14 @@
+<div class="collapse" id="upload" style="display: block;">
+  <div class="row">
+    <% if collection.present? %>
+      <% collection.each do |item| %>
+        <div class="col-vk-photo">
+          <div class="card-vk-photo">
+            <img src="<%= item %>" class="card-img-top">
+            <%= radio_button 'post', 'remote_photo', item, class: 'custom-radio' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

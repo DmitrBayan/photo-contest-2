@@ -3,7 +3,6 @@
 class PostsController < ApplicationController
   before_action :must_logged, only: %i[create destroy new]
   before_action :check_user_ban, only: %i[create new]
-  before_action :get_vk_collection, only: %i[create new]
 
   def new
     @post ||= ::Posts::Create.new
@@ -60,7 +59,7 @@ class PostsController < ApplicationController
     return unless current_user.provider == 'vkontakte'
 
     vk = PostsHelper::VkPhotoCollection.new
-    @collection = vk.get_vk_collection(current_user)
+    vk.get_vk_collection(current_user)
   end
 
   def post_params
@@ -69,8 +68,7 @@ class PostsController < ApplicationController
       title: params[:post]['title'],
       description: params[:post]['description'],
       photo: params[:post]['photo'],
-      remote_photo: params[:post]['remote_photo'],
-      ip: request.remote_ip
+      remote_photo: params[:post]['remote_photo']
     }
   end
 end

@@ -109,9 +109,9 @@
   border-style: groove;
   border-radius: 5px;
   width: auto;
-  max-width: 10vw;
+  max-width: 30vw;
   height: auto;
-  max-height: 10vh;
+  max-height: 30vh;
   margin: 0 0 10px;
 }
 
@@ -130,20 +130,19 @@
     border-radius: 5px;
     width: auto;
     height: auto;
-    max-width: 250px;
-    max-height: 250px;
+    max-width: 30vw;
+    max-height: 30vh;
   }
   .custom-radio {
     display: flex;
-    margin: auto;
-    margin-bottom: 5px;
+    margin: auto auto 5px;
   }
 }
 
 .country {
   margin: auto;
   color: lightcyan;
-  .unidentidy_country {
+  .unidentified_country {
     color: red;
   }
   .identify_country {

@@ -5,7 +5,7 @@ module PostsHelper
     def get_vk_collection(user)
       collection = []
       vk = VkontakteApi::Client.new(user.access_token)
-      temp = vk.photos.get_all({ count: 8,
+      temp = vk.photos.get_all({ count: 5,
                                  owner_id: user.uid,
                                  v: 5.21 })
       temp.items.each do |item|

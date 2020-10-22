@@ -28,24 +28,9 @@
         Or upload from VK <br>
         <small>Note: if you're upload photo via uploader, photo from VK cannot be published</small>
         <br>
-        <span class="btn btn-info" data-toggle="collapse" data-target="#upload"
-              aria-controls="navbarToggleExternalContent" aria-expanded="false"
-              aria-label="Toggle navigation"> Open list </span>
+        <%= link_to 'Open List', {}, remote: true, class: 'btn btn-info' %>
       <% end %>
-    </div>
-    <div class="collapse" id="upload">
-      <div class="row">
-        <% if @collection.present? %>
-          <% @collection.each do |item| %>
-            <div class="col-vk-photo">
-              <div class="card-vk-photo">
-                <a><img src="<%= item %>" class="card-img-top"> </a>
-                <%= f.radio_button :remote_photo, item, class: 'custom-radio' %>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
+      <div class="open-vk-collection"></div>
     </div>
     <hr>
     <%= f.submit "Upload", class: "btn btn-secondary " %>
