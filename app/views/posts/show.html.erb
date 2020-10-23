@@ -22,6 +22,7 @@
       <small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago.</small>
       <small class="text-muted"><%= @post.user.full_name %></small>
       This photo from: <%= @post.ip_address %>
+      <%= image_tag "https://www.google.com/maps/api/staticmap?size=300x300&key=#{Rails.application.credentials[:googlemap_key]}&zoom=32&markers=#{@post.latitude}%2C#{@post.longitude}" %>
     </div>
   </div>
   <ul>
