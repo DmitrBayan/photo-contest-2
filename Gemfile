@@ -58,6 +58,7 @@ gem 'rubocop-rails', require: false
 gem 'bootstrap-sass'
 gem 'will_paginate-bootstrap'
 
+gem 'jquery-rails'
 gem 'will_paginate'
 
 gem 'factory_bot_rails'

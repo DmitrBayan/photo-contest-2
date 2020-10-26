@@ -1,2 +1,5 @@
 $(".open-vk-collection").html("<%= escape_javascript render 'shared/vk_collection',
-                                   collection: controller.send('get_vk_collection') %>")
+                                   collection: controller.send('get_vk_collection'),
+                                   post: @post%>")
+$("#posts").html("<%= escape_javascript render("posts/posts") %>")
+

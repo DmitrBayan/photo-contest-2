@@ -7,7 +7,7 @@ class UsersController < ApplicationController
                params[:filter].present? ? @user.posts.public_send(params[:filter]) : @user.posts
              else
                @user.posts.approved
-             end
+             end .paginate(page: params[:page], per_page: 9)
   end
 
   def index

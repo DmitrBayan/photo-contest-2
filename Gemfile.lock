@@ -1367,6 +1367,7 @@ DEPENDENCIES
   geocoder
   i18n
   jbuilder (~> 2.7)
+  jquery-rails
   listen (~> 3.2)
   omniauth-facebook
   omniauth-vkontakte

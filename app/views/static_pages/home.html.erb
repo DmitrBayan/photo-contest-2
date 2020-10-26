@@ -15,6 +15,7 @@
         <%= link_to "+", new_post_url, class: "btn btn-lg btn-success" %>
     <% end %>
   </div>
-  <%= render 'shared/posts_index' %>
-  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+  <div id="posts">
+    <%= render 'posts/posts' %>
+  </div>
 </section>
