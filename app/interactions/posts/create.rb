@@ -11,10 +11,6 @@ module Posts
 
     validates :title, presence: true
 
-    def to_model
-      Post.new
-    end
-
     def execute
       post = user.posts.build(title: title,
                               description: description,
